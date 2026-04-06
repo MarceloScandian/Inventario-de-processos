@@ -1,0 +1,95 @@
+<!--
+  MÓDULO: Torre de Controle — Apuração e Entrega de Obrigações
+  Área: Fiscal · Responsável: Geisi Santos
+  Arquivo: modulos/fiscal-apuracao.html · Versão: v3
+-->
+<div class="modal-close"><button onclick="closeModule()">✕ fechar template</button></div>
+<style>
+.apw{font-family:system-ui,sans-serif;font-size:13px;color:#e2e8f0}
+.ap-hdr{background:#1a1a2e;padding:16px 22px;display:flex;justify-content:space-between;align-items:flex-start}
+.ap-hdr h2{color:#fff;font-size:14px;font-weight:700;margin:0}.ap-hdr p{color:#aaa;font-size:11px;margin-top:2px}
+.ap-tabs{background:#161b27;border-bottom:1px solid #1e293b;display:flex;padding:0 16px}
+.ap-tab{padding:9px 16px;font-size:11px;font-weight:700;color:#475569;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px}
+.ap-tab.active{color:#e2e8f0;border-bottom-color:#6366f1}
+.ap-tc{display:none;padding:16px}.ap-tc.active{display:block}
+.ap-sumbar{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-bottom:16px}
+.ap-sb{background:#161b27;border:1px solid #1e293b;border-radius:8px;padding:9px 12px;text-align:center}
+.ap-sb-l{font-size:9px;color:#475569;text-transform:uppercase;letter-spacing:.04em;margin-bottom:3px}
+.ap-sb-v{font-size:18px;font-weight:700}.ap-sb-d{font-size:10px;color:#64748b;margin-top:1px}
+.ap-filter{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap}
+.ap-fb{font-size:11px;padding:4px 10px;border-radius:5px;border:1px solid #1e293b;background:#161b27;color:#64748b;cursor:pointer}
+.ap-fb.active{background:#6366f1;border-color:#6366f1;color:#fff;font-weight:700}
+.ap-grp-hdr{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;padding:10px 4px 6px;border-bottom:1px solid #1e293b;margin-bottom:4px}
+.ap-th{display:grid;grid-template-columns:180px 80px 60px 60px 60px 70px 1fr;gap:0;padding:7px 12px;background:#0d1520;font-size:9px;font-weight:700;color:#475569;text-transform:uppercase;letter-spacing:.05em;border-radius:6px 6px 0 0}
+.ap-row{display:grid;grid-template-columns:180px 80px 60px 60px 60px 70px 1fr;gap:0;padding:9px 12px;border-top:1px solid #131922;align-items:center;cursor:pointer}
+.ap-row:hover{background:#1a2234}.ap-detail{display:none;padding:10px 12px 12px;background:#0d1520;border-top:1px solid #1e293b}.ap-detail.open{display:block}
+.esf{display:inline-block;padding:1px 6px;border-radius:3px;font-size:10px;font-weight:700}
+.esf-f{background:#0c447c;color:#93c5fd}.esf-e{background:#0f6e56;color:#6ee7b7}.esf-m{background:#3c3489;color:#c4b5fd}
+.ap-badge{display:inline-flex;align-items:center;padding:2px 7px;border-radius:99px;font-size:10px;font-weight:600;white-space:nowrap}
+.ab-ok{background:#0d2820;color:#4ade80}.ab-late{background:#2a1515;color:#f87171}.ab-going{background:#1e3a5f;color:#6b9fd4}.ab-todo{background:#1a2234;color:#475569}
+.ap-cnpj-row{display:grid;grid-template-columns:130px 100px 1fr 90px;gap:8px;align-items:center;padding:6px 8px;border-radius:5px;background:#131922;margin-bottom:4px;font-size:11px}
+.ap-cnpj-label{color:#94a3b8;font-weight:600}.ap-cnpj-etapa{color:#64748b}.ap-prog{display:flex;gap:3px}
+.ap-step{width:18px;height:6px;border-radius:2px}
+.as-done{background:#4ade80}.as-active{background:#6b9fd4}.as-late{background:#f87171}.as-pend{background:#1e293b}
+.ap-sla-th{display:grid;grid-template-columns:180px 80px 70px 80px 1fr;gap:0;padding:7px 12px;background:#0d1520;font-size:9px;font-weight:700;color:#475569;text-transform:uppercase;letter-spacing:.05em;border-radius:6px 6px 0 0}
+.ap-sla-row{display:grid;grid-template-columns:180px 80px 70px 80px 1fr;gap:0;padding:9px 12px;border-top:1px solid #131922;align-items:center}
+.ap-ftr{padding:10px 16px;font-size:10px;color:#334155;border-top:1px solid #1e293b;text-align:center}
+</style>
+<div class="apw">
+  <div class="ap-hdr"><div><h2>Torre de Controle — Apuração e Entrega de Obrigações</h2><p>Fiscal · Geisi Santos · Template v3 · Federal, Estadual e Municipal</p></div><div style="text-align:right;font-size:11px;color:#aaa">Ref: Abr/2026</div></div>
+  <div class="ap-tabs"><div class="ap-tab active" onclick="apTab('cc',this)">Conta corrente</div><div class="ap-tab" onclick="apTab('sla',this)">SLA por obrigação</div><div class="ap-tab" onclick="apTab('hist',this)">Histórico</div></div>
+  <div class="ap-tc active" id="apTc-cc">
+    <div class="ap-sumbar">
+      <div class="ap-sb"><div class="ap-sb-l">Saldo inicial</div><div class="ap-sb-v" style="color:#6b9fd4">12</div><div class="ap-sb-d">obrigações em aberto</div></div>
+      <div class="ap-sb"><div class="ap-sb-l">+ Entradas mês</div><div class="ap-sb-v" style="color:#e2e8f0">89</div><div class="ap-sb-d">competência Abr/26</div></div>
+      <div class="ap-sb"><div class="ap-sb-l">− Saídas</div><div class="ap-sb-v" style="color:#4ade80">68</div><div class="ap-sb-d">entregues/pagas</div></div>
+      <div class="ap-sb"><div class="ap-sb-l">= Saldo final</div><div class="ap-sb-v" style="color:#fbbf24">33</div><div class="ap-sb-d">em processamento</div></div>
+      <div class="ap-sb"><div class="ap-sb-l">Atrasadas</div><div class="ap-sb-v" style="color:#f87171">27</div><div class="ap-sb-d">DCTFWeb vencidas</div></div>
+    </div>
+    <div class="ap-filter"><button class="ap-fb active" onclick="apFilter('all',this)">Todas</button><button class="ap-fb" onclick="apFilter('fed',this)">Federal</button><button class="ap-fb" onclick="apFilter('est',this)">Estadual</button><button class="ap-fb" onclick="apFilter('mun',this)">Municipal</button></div>
+    <div class="ap-grp-hdr" data-esf="fed" style="color:#6b9fd4">Federal — Obrigações Principais <span style="font-weight:400;color:#475569">· Saldo acum: 3 abertos</span></div>
+    <div class="ap-th" data-esf="fed"><div>Obrigação</div><div>Esfera</div><div>Saldo ini.</div><div>Entradas</div><div>Saídas</div><div>Saldo fin.</div><div>Status</div></div>
+    <div class="ap-row" data-esf="fed" onclick="apToggle('apOb1')"><div style="font-size:12px;font-weight:600;color:#e2e8f0">DARF IRPJ/CSLL <span id="apIcon-apOb1" style="font-size:10px;color:#475569">▶</span></div><div><span class="esf esf-f">Federal</span></div><div style="font-size:12px;color:#94a3b8">0</div><div style="font-size:12px;color:#94a3b8">24</div><div style="font-size:12px;color:#4ade80">24</div><div style="font-size:13px;font-weight:700;color:#4ade80">0 ✓</div><div><span class="ap-badge ab-ok">✅ Regular</span></div></div>
+    <div class="ap-detail" id="apOb1"><div style="font-size:10px;color:#475569;margin-bottom:6px">Fluxo: 1. Apuração → 2. Gerar DARF → 3. Pagamento → 4. Arquivo · SLA: D+20</div><div class="ap-cnpj-row"><div class="ap-cnpj-label">Todos CNPJs</div><div class="ap-cnpj-etapa">Etapa 4 — Arquivo concluído</div><div class="ap-prog"><div class="ap-step as-done"></div><div class="ap-step as-done"></div><div class="ap-step as-done"></div><div class="ap-step as-done"></div></div><div><span class="ap-badge ab-ok" style="font-size:9px">Concluído ✓</span></div></div></div>
+    <div class="ap-row" data-esf="fed" onclick="apToggle('apOb2')"><div style="font-size:12px;font-weight:600;color:#e2e8f0">FGTS (GPS) <span id="apIcon-apOb2" style="font-size:10px;color:#475569">▶</span></div><div><span class="esf esf-f">Federal</span></div><div style="font-size:12px;color:#94a3b8">0</div><div style="font-size:12px;color:#94a3b8">8</div><div style="font-size:12px;color:#4ade80">5</div><div style="font-size:13px;font-weight:700;color:#fbbf24">3</div><div><span class="ap-badge ab-going">▶ Em andamento</span></div></div>
+    <div class="ap-detail" id="apOb2"><div style="font-size:10px;color:#475569;margin-bottom:6px">Fluxo: 1. Apuração eSocial → 2. Gerar GPS → 3. Pagamento → 4. Arquivo · SLA: D+7</div><div class="ap-cnpj-row"><div class="ap-cnpj-label">Matriz PR</div><div class="ap-cnpj-etapa">Etapa 3 — Pagamento</div><div class="ap-prog"><div class="ap-step as-done"></div><div class="ap-step as-done"></div><div class="ap-step as-active"></div><div class="ap-step as-pend"></div></div><div><span class="ap-badge ab-going" style="font-size:9px">No prazo</span></div></div><div class="ap-cnpj-row"><div class="ap-cnpj-label">Filial SP</div><div class="ap-cnpj-etapa">Etapa 2 — GPS Gerada</div><div class="ap-prog"><div class="ap-step as-done"></div><div class="ap-step as-active"></div><div class="ap-step as-pend"></div><div class="ap-step as-pend"></div></div><div><span class="ap-badge ab-going" style="font-size:9px">No prazo</span></div></div></div>
+    <div class="ap-grp-hdr" data-esf="fed" style="color:#6b9fd4;margin-top:8px">Federal — Obrigações Acessórias <span style="font-weight:400;color:#f87171">· 27 atrasadas (DCTFWeb)</span></div>
+    <div class="ap-row" data-esf="fed" onclick="apToggle('apOb3')"><div style="font-size:12px;font-weight:600;color:#f87171">DCTFWeb <span id="apIcon-apOb3" style="font-size:10px;color:#475569">▶</span></div><div><span class="esf esf-f">Federal</span></div><div style="font-size:12px;color:#94a3b8">10</div><div style="font-size:12px;color:#94a3b8">44</div><div style="font-size:12px;color:#4ade80">27</div><div style="font-size:13px;font-weight:700;color:#f87171">27</div><div><span class="ap-badge ab-late">! 27 atrasadas</span></div></div>
+    <div class="ap-detail" id="apOb3"><div style="font-size:10px;color:#475569;margin-bottom:6px">27 omissas vencidas · SLA: D+15</div><div class="ap-cnpj-row" style="background:#2a1515"><div class="ap-cnpj-label" style="color:#f87171">27 CNPJs</div><div class="ap-cnpj-etapa" style="color:#f87171">Omissas — não transmitidas</div><div class="ap-prog"><div class="ap-step as-pend"></div><div class="ap-step as-pend"></div><div class="ap-step as-pend"></div><div class="ap-step as-pend"></div></div><div><span class="ap-badge ab-late" style="font-size:9px">Crítico</span></div></div></div>
+    <div class="ap-row" data-esf="fed"><div style="font-size:12px;font-weight:600;color:#e2e8f0">EFD-Contribuições (PIS/COFINS)</div><div><span class="esf esf-f">Federal</span></div><div style="font-size:12px;color:#94a3b8">0</div><div style="font-size:12px;color:#94a3b8">27</div><div style="font-size:12px;color:#4ade80">27</div><div style="font-size:13px;font-weight:700;color:#4ade80">0 ✓</div><div><span class="ap-badge ab-ok">✅ Regular</span></div></div>
+    <div class="ap-grp-hdr" data-esf="est" style="color:#6baa6b;margin-top:8px">Estadual <span style="font-weight:400;color:#475569">· Saldo acum: 9 em andamento</span></div>
+    <div class="ap-row" data-esf="est" onclick="apToggle('apOb4')"><div style="font-size:12px;font-weight:600;color:#e2e8f0">EFD ICMS/IPI (SPED) <span id="apIcon-apOb4" style="font-size:10px;color:#475569">▶</span></div><div><span class="esf esf-e">Estadual</span></div><div style="font-size:12px;color:#94a3b8">3</div><div style="font-size:12px;color:#94a3b8">28</div><div style="font-size:12px;color:#4ade80">24</div><div style="font-size:13px;font-weight:700;color:#fbbf24">7</div><div><span class="ap-badge ab-going">▶ 7 em andamento</span></div></div>
+    <div class="ap-detail" id="apOb4"><div style="font-size:10px;color:#475569;margin-bottom:6px">Fluxo: 1. Escrituração → 2. Validação → 3. Transmissão SEFAZ → 4. Recibo · SLA: D+20</div><div class="ap-cnpj-row"><div class="ap-cnpj-label">Matriz PR</div><div class="ap-cnpj-etapa">Etapa 3</div><div class="ap-prog"><div class="ap-step as-done"></div><div class="ap-step as-done"></div><div class="ap-step as-active"></div><div class="ap-step as-pend"></div></div><div><span class="ap-badge ab-going" style="font-size:9px">No prazo</span></div></div><div class="ap-cnpj-row"><div class="ap-cnpj-label">Filial ES</div><div class="ap-cnpj-etapa">Etapa 1</div><div class="ap-prog"><div class="ap-step as-active"></div><div class="ap-step as-pend"></div><div class="ap-step as-pend"></div><div class="ap-step as-pend"></div></div><div><span class="ap-badge ab-late" style="font-size:9px">Atrasado 2d</span></div></div></div>
+    <div class="ap-row" data-esf="est"><div style="font-size:12px;font-weight:600;color:#e2e8f0">GNRE / ICMS</div><div><span class="esf esf-e">Estadual</span></div><div style="font-size:12px;color:#94a3b8">0</div><div style="font-size:12px;color:#94a3b8">9</div><div style="font-size:12px;color:#4ade80">7</div><div style="font-size:13px;font-weight:700;color:#fbbf24">2</div><div><span class="ap-badge ab-going">▶ 2 abertos</span></div></div>
+    <div class="ap-grp-hdr" data-esf="mun" style="color:#a06bd4;margin-top:8px">Municipal <span style="font-weight:400;color:#475569">· Saldo acum: 4 em andamento</span></div>
+    <div class="ap-row" data-esf="mun"><div style="font-size:12px;font-weight:600;color:#e2e8f0">ISS Municipal (NFS-e)</div><div><span class="esf esf-m">Municipal</span></div><div style="font-size:12px;color:#94a3b8">0</div><div style="font-size:12px;color:#94a3b8">10</div><div style="font-size:12px;color:#4ade80">6</div><div style="font-size:13px;font-weight:700;color:#fbbf24">4</div><div><span class="ap-badge ab-going">▶ 4 abertos</span></div></div>
+  </div>
+  <div class="ap-tc" id="apTc-sla">
+    <div class="ap-sla-th"><div>Obrigação</div><div>Esfera</div><div>SLA meta</div><div>Vencimento</div><div>Responsável</div></div>
+    <div class="ap-sla-row"><div style="font-size:12px;color:#e2e8f0">FGTS (GPS)</div><div><span class="esf esf-f">Federal</span></div><div style="font-size:12px;color:#4ade80">D+7</div><div style="font-size:12px;font-weight:600">Dia 7</div><div style="font-size:12px;color:#94a3b8">CSC (Cris)</div></div>
+    <div class="ap-sla-row"><div style="font-size:12px;color:#e2e8f0">ISS Municipal</div><div><span class="esf esf-m">Municipal</span></div><div style="font-size:12px;color:#4ade80">D+10</div><div style="font-size:12px;font-weight:600">Dia 10</div><div style="font-size:12px;color:#94a3b8">Geisi + CSC</div></div>
+    <div class="ap-sla-row"><div style="font-size:12px;color:#f87171;font-weight:600">DCTFWeb</div><div><span class="esf esf-f">Federal</span></div><div style="font-size:12px;color:#fbbf24">D+15</div><div style="font-size:12px;font-weight:600;color:#f87171">15/Mar ⚠️</div><div style="font-size:12px;color:#94a3b8">Geisi</div></div>
+    <div class="ap-sla-row"><div style="font-size:12px;color:#e2e8f0">DARF IRPJ/CSLL</div><div><span class="esf esf-f">Federal</span></div><div style="font-size:12px;color:#4ade80">D+20</div><div style="font-size:12px;font-weight:600">Dia 20</div><div style="font-size:12px;color:#94a3b8">Geisi + CSC</div></div>
+  </div>
+  <div class="ap-tc" id="apTc-hist"><div style="padding:24px;text-align:center;color:#475569"><div style="font-size:28px;margin-bottom:10px">📋</div><div style="font-size:13px;font-weight:600;color:#64748b">Histórico mensal — a construir</div></div></div>
+  <div class="ap-ftr">Template v3 · Apuração e Entrega de Obrigações · Fiscal MadeiraMadeira · Construído 03/Abr/2026</div>
+</div>
+<script>
+(function(){
+  function apTab(id,el){
+    document.querySelectorAll('#module-container .ap-tab').forEach(t=>t.classList.remove('active'));
+    ['apTc-cc','apTc-sla','apTc-hist'].forEach(t=>{const v=document.getElementById(t);if(v)v.classList.remove('active')});
+    el.classList.add('active');document.getElementById('apTc-'+id).classList.add('active');
+  }
+  function apFilter(f,btn){
+    document.querySelectorAll('#module-container .ap-fb').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('#module-container [data-esf]').forEach(el=>{el.style.display=(f==='all'||el.dataset.esf===f)?'':'none'});
+  }
+  function apToggle(id){
+    const d=document.getElementById(id);const icon=document.getElementById('apIcon-'+id);
+    const open=d.classList.toggle('open');if(icon)icon.textContent=open?'▼':'▶';
+  }
+  window.apTab=apTab;window.apFilter=apFilter;window.apToggle=apToggle;
+})();
+</script>
