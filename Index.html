@@ -6,27 +6,22 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:system-ui,sans-serif;font-size:13px;background:#0f1117;color:#e2e8f0;padding:16px}
-
 .header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:16px;gap:12px;flex-wrap:wrap}
 .header-left h1{font-size:17px;font-weight:600;color:#f1f5f9}
 .header-left p{font-size:12px;color:#64748b;margin-top:3px}
 .cal-btn{display:flex;align-items:center;gap:6px;background:#1e293b;border:1px solid #334155;color:#94a3b8;padding:7px 14px;border-radius:7px;cursor:pointer;font-size:12px;font-weight:600;white-space:nowrap;transition:.15s}
 .cal-btn:hover{background:#253347;color:#e2e8f0;border-color:#6366f1}
 .cal-btn span{font-size:16px}
-
 .summary{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap}
 .s-card{background:#161b27;border:1px solid #1e293b;border-radius:8px;padding:10px 14px;min-width:100px}
 .s-num{font-size:20px;font-weight:600;color:#e2e8f0}
 .s-lbl{font-size:11px;color:#475569;margin-top:2px}
-
 .legend{display:flex;gap:14px;margin-bottom:14px;flex-wrap:wrap}
 .leg{display:flex;align-items:center;gap:6px;font-size:11px;color:#64748b}
 .leg-box{width:28px;height:14px;border-radius:3px;font-size:9px;display:flex;align-items:center;justify-content:center;font-weight:700}
-
 .filter-row{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
 .f-btn{background:#161b27;border:1px solid #1e293b;color:#64748b;padding:5px 12px;border-radius:6px;cursor:pointer;font-size:12px;transition:all .15s}
 .f-btn:hover,.f-btn.active{background:#6366f1;border-color:#6366f1;color:#fff}
-
 .area-block{margin-bottom:12px;background:#161b27;border:1px solid #1e293b;border-radius:10px;overflow:hidden}
 .area-header{display:flex;align-items:center;gap:10px;padding:11px 14px;cursor:pointer;border-left:4px solid}
 .area-header:hover{background:#1a2234}
@@ -35,37 +30,27 @@ body{font-family:system-ui,sans-serif;font-size:13px;background:#0f1117;color:#e
 .area-count{margin-left:auto;font-size:11px;color:#475569}
 .expand-icon{color:#475569;font-size:14px;transition:transform .2s;flex-shrink:0}
 .area-block.open .expand-icon{transform:rotate(45deg)}
-
 .proc-table{display:none;border-top:1px solid #1e293b;overflow-x:auto}
 .area-block.open .proc-table{display:block}
-
-/* 7 cols: Processo | Criação | Documentação | Capacitação | ② Torre | Template | Data Auditoria */
 .table-head{display:grid;grid-template-columns:1fr 72px 90px 90px 90px 90px 100px;gap:0;padding:7px 14px;background:#0d1520;font-size:9px;font-weight:600;color:#475569;text-transform:uppercase;letter-spacing:.06em;min-width:720px}
 .proc-row{display:grid;grid-template-columns:1fr 72px 90px 90px 90px 90px 100px;gap:0;padding:8px 14px;border-top:1px solid #131922;align-items:center;min-width:720px}
 .proc-row:hover{background:#1a2234}
 .proc-name{font-size:12px;color:#cbd5e1;line-height:1.35;padding-right:8px}
-
 .badge{display:inline-flex;align-items:center;justify-content:center;padding:3px 8px;border-radius:5px;font-size:10px;font-weight:600;white-space:nowrap}
 .b-todo{background:#1a2234;color:#475569;border:1px dashed #2d3748}
 .b-ok{background:#0d2820;color:#4ade80}
 .b-prog{background:#1e3a5f;color:#6b9fd4}
 .b-warn{background:#2e2010;color:#fbbf24}
-
 .tpl-btn{display:inline-flex;align-items:center;gap:5px;padding:3px 9px;border-radius:5px;font-size:10px;font-weight:600;background:#251a3e;color:#a06bd4;border:1px solid #3d2a5e;cursor:pointer;transition:all .15s;white-space:nowrap}
 .tpl-btn:hover{background:#3d2a5e;color:#c4a0f0}
-
 .aud-date{font-size:10px;color:#64748b;padding:2px 6px;border-radius:4px}
 .aud-date.set{background:#0f2d1f;color:#4ade80;font-weight:600}
-
-/* ===== MODAL OVERLAY (shared) ===== */
 .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:1000;overflow:auto;padding:20px}
 .modal-overlay.open{display:flex;align-items:flex-start;justify-content:center}
 .modal{background:#0f1117;border:1px solid #1e293b;border-radius:12px;width:100%;max-width:1100px;max-height:90vh;overflow:auto;position:relative}
 .modal-close{position:sticky;top:0;z-index:10;display:flex;justify-content:flex-end;padding:10px 14px;background:#0f1117;border-bottom:1px solid #1e293b}
 .modal-close button{background:#1e293b;border:none;color:#94a3b8;padding:6px 14px;border-radius:6px;cursor:pointer;font-size:12px}
 .modal-close button:hover{background:#283548;color:#e2e8f0}
-
-/* ===== CALENDAR MODAL ===== */
 .cal-modal{max-width:820px}
 .cal-hdr{background:#1a1a2e;padding:16px 22px;border-bottom:1px solid #252d45}
 .cal-hdr h2{color:#fff;font-size:14px;font-weight:700;margin:0}
@@ -82,50 +67,10 @@ body{font-family:system-ui,sans-serif;font-size:13px;background:#0f1117;color:#e
 .btn-save{background:#6366f1;border:none;color:#fff;padding:8px 20px;border-radius:6px;cursor:pointer;font-size:12px;font-weight:700}
 .btn-save:hover{background:#4f52cc}
 .btn-cancel{background:#1e293b;border:none;color:#94a3b8;padding:8px 16px;border-radius:6px;cursor:pointer;font-size:12px}
-
-/* ===== TEMPLATE INTERNO (Torre Fiscal) ===== */
-.tf-wrap{padding:0}
-.tf-hdr{background:#1a1a2e;padding:16px 22px;display:flex;justify-content:space-between;align-items:center}
-.tf-hdr h2{color:#fff;font-size:14px;font-weight:700;margin:0}
-.tf-hdr p{color:#aaa;font-size:11px;margin-top:2px}
-.tf-tabs{background:#161b27;border-bottom:1px solid #1e293b;display:flex;padding:0 16px}
-.tf-tab{padding:9px 16px;font-size:11px;font-weight:700;color:#475569;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px}
-.tf-tab.active{color:#e2e8f0;border-bottom-color:#6366f1}
-.tf-tab-content{display:none;padding:16px}
-.tf-tab-content.active{display:block}
-.tf-sumbar{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-bottom:16px}
-.tf-sb{background:#161b27;border:1px solid #1e293b;border-radius:8px;padding:9px 12px;text-align:center}
-.tf-sb-l{font-size:9px;color:#475569;text-transform:uppercase;letter-spacing:.04em;margin-bottom:3px}
-.tf-sb-v{font-size:18px;font-weight:700}
-.tf-sb-d{font-size:10px;color:#64748b;margin-top:1px}
-.tf-filter{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap}
-.tf-fb{font-size:11px;padding:4px 10px;border-radius:5px;border:1px solid #1e293b;background:#161b27;color:#64748b;cursor:pointer}
-.tf-fb.active{background:#6366f1;border-color:#6366f1;color:#fff;font-weight:700}
-.tf-table-head{display:grid;grid-template-columns:160px 120px 80px 70px 70px 80px 1fr;gap:0;padding:7px 12px;background:#0d1520;font-size:9px;font-weight:700;color:#475569;text-transform:uppercase;letter-spacing:.05em;border-radius:6px 6px 0 0}
-.tf-row{display:grid;grid-template-columns:160px 120px 80px 70px 70px 80px 1fr;gap:0;padding:9px 12px;border-top:1px solid #131922;align-items:center;cursor:pointer}
-.tf-row:hover{background:#1a2234}
-.tf-detail{display:none;padding:10px 12px 12px 12px;background:#0d1520;border-top:1px solid #1e293b}
-.tf-detail.open{display:block}
-.esf{display:inline-block;padding:1px 6px;border-radius:3px;font-size:10px;font-weight:700}
-.esf-f{background:#0c447c;color:#93c5fd}
-.esf-e{background:#0f6e56;color:#6ee7b7}
-.esf-m{background:#3c3489;color:#c4b5fd}
-.tf-badge{display:inline-flex;align-items:center;padding:2px 7px;border-radius:99px;font-size:10px;font-weight:600}
-.tb-ok{background:#0d2820;color:#4ade80}
-.tb-late{background:#2a1515;color:#f87171}
-.tb-going{background:#1e3a5f;color:#6b9fd4}
-.tb-todo{background:#1a2234;color:#475569}
-.cnpj-row{display:grid;grid-template-columns:130px 100px 1fr 90px;gap:8px;align-items:center;padding:6px 8px;border-radius:5px;background:#131922;margin-bottom:4px;font-size:11px}
-.cnpj-label{color:#94a3b8;font-weight:600}
-.cnpj-etapa{color:#64748b}
-.cnpj-prog{display:flex;gap:3px}
-.cnpj-step{width:18px;height:6px;border-radius:2px}
-.cs-done{background:#4ade80}.cs-active{background:#6b9fd4}.cs-late{background:#f87171}.cs-pend{background:#1e293b}
-.tf-ftr{padding:10px 16px;font-size:10px;color:#334155;border-top:1px solid #1e293b;text-align:center}
+.module-loading{display:flex;align-items:center;justify-content:center;height:200px;color:#475569;font-size:13px;gap:10px}
 </style>
 </head>
 <body>
-
 <div class="header">
   <div class="header-left">
     <h1>Compliance CFO — Inventário de Processos</h1>
@@ -133,7 +78,6 @@ body{font-family:system-ui,sans-serif;font-size:13px;background:#0f1117;color:#e
   </div>
   <button class="cal-btn" onclick="openCalModal()"><span>📅</span> Calendário de Auditorias</button>
 </div>
-
 <div class="summary">
   <div class="s-card"><div class="s-num">5</div><div class="s-lbl">Áreas</div></div>
   <div class="s-card"><div class="s-num">47</div><div class="s-lbl">Processos</div></div>
@@ -141,14 +85,12 @@ body{font-family:system-ui,sans-serif;font-size:13px;background:#0f1117;color:#e
   <div class="s-card" style="border-color:#2d3748"><div class="s-num" style="color:#475569">42</div><div class="s-lbl">A definir</div></div>
   <div class="s-card" style="border-color:#1e3a5f"><div class="s-num" style="color:#6b9fd4" id="aud-count">0</div><div class="s-lbl" style="color:#6b9fd4">Auditorias agendadas</div></div>
 </div>
-
 <div class="legend">
   <div class="leg"><div class="leg-box b-todo">—</div>A definir</div>
   <div class="leg"><div class="leg-box b-prog">▶</div>Em andamento</div>
   <div class="leg"><div class="leg-box b-ok">✓</div>Concluído</div>
   <div class="leg" style="color:#a06bd4"><div class="leg-box" style="background:#251a3e;color:#a06bd4;border:1px solid #3d2a5e">T</div>Template disponível</div>
 </div>
-
 <div class="filter-row">
   <button class="f-btn active" onclick="filterArea('all',this)">Todas as áreas</button>
   <button class="f-btn" onclick="filterArea('csc',this)">CSC-financeiro</button>
@@ -157,13 +99,11 @@ body{font-family:system-ui,sans-serif;font-size:13px;background:#0f1117;color:#e
   <button class="f-btn" onclick="filterArea('juridico',this)">Jurídico</button>
   <button class="f-btn" onclick="filterArea('dp',this)">Depto. Pessoal</button>
 </div>
-
-<!-- ============ CSC-FINANCEIRO ============ -->
+<!-- CSC-FINANCEIRO -->
 <div class="area-block open" data-area="csc" id="area-csc">
   <div class="area-header" style="border-color:#3b82f6" onclick="toggleArea('area-csc')">
     <div><span class="area-name" style="color:#6b8fc9">CSC-financeiro</span><span class="area-sub">· Cris Ongaro</span></div>
-    <div class="area-count">17 processos</div>
-    <div class="expand-icon">+</div>
+    <div class="area-count">17 processos</div><div class="expand-icon">+</div>
   </div>
   <div class="proc-table">
     <div class="table-head"><div>Processo</div><div>Criação</div><div>Documentação</div><div>Capacitação</div><div>② Torre</div><div>Template</div><div>Data Auditoria</div></div>
@@ -177,7 +117,7 @@ body{font-family:system-ui,sans-serif;font-size:13px;background:#0f1117;color:#e
       <div class="proc-name" style="color:#e2e8f0;font-weight:500">Contas a pagar — Indiretos Impostos</div>
       <div><span class="badge b-todo">A definir</span></div><div><span class="badge b-todo">A definir</span></div><div><span class="badge b-todo">A definir</span></div>
       <div><span class="badge b-prog">▶ Iniciado</span></div>
-      <div><span class="tpl-btn" onclick="openModal3()">T ver template</span></div>
+      <div><span class="tpl-btn" onclick="loadModule('modulos/csc-cp-impostos.html')">T ver template</span></div>
       <div><span class="aud-date" id="ad-csc-7">—</span></div>
     </div>
     <div class="proc-row" data-pid="csc-8"><div class="proc-name">Contas a pagar — Folha</div><div><span class="badge b-todo">A definir</span></div><div><span class="badge b-todo">A definir</span></div><div><span class="badge b-todo">A definir</span></div><div><span class="badge b-todo">A definir</span></div><div>—</div><div><span class="aud-date" id="ad-csc-8">—</span></div></div>
@@ -192,13 +132,11 @@ body{font-family:system-ui,sans-serif;font-size:13px;background:#0f1117;color:#e
     <div class="proc-row" data-pid="csc-17"><div class="proc-name" style="color:#475569;font-style:italic">Super backoffice (escopo a confirmar)</div><div><span class="badge b-todo">A definir</span></div><div><span class="badge b-todo">A definir</span></div><div><span class="badge b-todo">A definir</span></div><div><span class="badge b-todo">A definir</span></div><div>—</div><div><span class="aud-date" id="ad-csc-17">—</span></div></div>
   </div>
 </div>
-
-<!-- ============ FISCAL ============ -->
+<!-- FISCAL -->
 <div class="area-block open" data-area="fiscal" id="area-fiscal">
   <div class="area-header" style="border-color:#ef4444" onclick="toggleArea('area-fiscal')">
     <div><span class="area-name" style="color:#d46b6b">Fiscal</span><span class="area-sub">· Geisi Santos</span></div>
-    <div class="area-count">8 processos</div>
-    <div class="expand-icon">+</div>
+    <div class="area-count">8 processos</div><div class="expand-icon">+</div>
   </div>
   <div class="proc-table">
     <div class="table-head"><div>Processo</div><div>Criação</div><div>Documentação</div><div>Capacitação</div><div>② Torre</div><div>Template</div><div>Data Auditoria</div></div>
@@ -206,21 +144,21 @@ body{font-family:system-ui,sans-serif;font-size:13px;background:#0f1117;color:#e
       <div class="proc-name" style="color:#e2e8f0;font-weight:500">Apuração, entrega e pgto de obrigações principal e acessória</div>
       <div><span class="badge b-todo">A definir</span></div><div><span class="badge b-todo">A definir</span></div><div><span class="badge b-todo">A definir</span></div>
       <div><span class="badge b-prog">▶ Iniciado</span></div>
-      <div><span class="tpl-btn" onclick="openModal2()">T ver template</span></div>
+      <div><span class="tpl-btn" onclick="loadModule('modulos/fiscal-apuracao.html')">T ver template</span></div>
       <div><span class="aud-date" id="ad-fis-1">—</span></div>
     </div>
     <div class="proc-row" data-pid="fis-2" style="background:#1a1a2e20">
       <div class="proc-name" style="color:#e2e8f0;font-weight:500">Escriturações de entrada de notas fiscais</div>
       <div><span class="badge b-todo">A definir</span></div><div><span class="badge b-todo">A definir</span></div><div><span class="badge b-todo">A definir</span></div>
       <div><span class="badge b-prog">▶ Iniciado</span></div>
-      <div><span class="tpl-btn" onclick="openModal()">T ver template</span></div>
+      <div><span class="tpl-btn" onclick="loadModule('modulos/fiscal-escrituracao-nf.html')">T ver template</span></div>
       <div><span class="aud-date" id="ad-fis-2">—</span></div>
     </div>
     <div class="proc-row" data-pid="fis-3" style="background:#1a1a2e20">
       <div class="proc-name" style="color:#e2e8f0;font-weight:500">Cadastramento / Descadastramento CNPJ</div>
       <div><span class="badge b-todo">A definir</span></div><div><span class="badge b-todo">A definir</span></div><div><span class="badge b-todo">A definir</span></div>
       <div><span class="badge b-prog">▶ Iniciado</span></div>
-      <div><span class="tpl-btn" onclick="openModal4()">T ver template</span></div>
+      <div><span class="tpl-btn" onclick="loadModule('modulos/fiscal-cadastro-cnpj.html')">T ver template</span></div>
       <div><span class="aud-date" id="ad-fis-3">—</span></div>
     </div>
     <div class="proc-row" data-pid="fis-4"><div class="proc-name">Cadastramento / Descadastramento SKU</div><div><span class="badge b-todo">A definir</span></div><div><span class="badge b-todo">A definir</span></div><div><span class="badge b-todo">A definir</span></div><div><span class="badge b-todo">A definir</span></div><div>—</div><div><span class="aud-date" id="ad-fis-4">—</span></div></div>
@@ -230,13 +168,11 @@ body{font-family:system-ui,sans-serif;font-size:13px;background:#0f1117;color:#e
     <div class="proc-row" data-pid="fis-8"><div class="proc-name">Planejamento tributário — análises e implantações</div><div><span class="badge b-todo">A definir</span></div><div><span class="badge b-todo">A definir</span></div><div><span class="badge b-todo">A definir</span></div><div><span class="badge b-todo">A definir</span></div><div>—</div><div><span class="aud-date" id="ad-fis-8">—</span></div></div>
   </div>
 </div>
-
-<!-- ============ CONTÁBIL ============ -->
+<!-- CONTÁBIL -->
 <div class="area-block open" data-area="contabil" id="area-contabil">
   <div class="area-header" style="border-color:#22c55e" onclick="toggleArea('area-contabil')">
     <div><span class="area-name" style="color:#6baa6b">Contábil</span><span class="area-sub">· Fernando Herculano</span></div>
-    <div class="area-count">7 processos</div>
-    <div class="expand-icon">+</div>
+    <div class="area-count">7 processos</div><div class="expand-icon">+</div>
   </div>
   <div class="proc-table">
     <div class="table-head"><div>Processo</div><div>Criação</div><div>Documentação</div><div>Capacitação</div><div>② Torre</div><div>Template</div><div>Data Auditoria</div></div>
@@ -249,13 +185,11 @@ body{font-family:system-ui,sans-serif;font-size:13px;background:#0f1117;color:#e
     <div class="proc-row" data-pid="con-7"><div class="proc-name">Fechamento mensal</div><div><span class="badge b-todo">A definir</span></div><div><span class="badge b-todo">A definir</span></div><div><span class="badge b-todo">A definir</span></div><div><span class="badge b-todo">A definir</span></div><div>—</div><div><span class="aud-date" id="ad-con-7">—</span></div></div>
   </div>
 </div>
-
-<!-- ============ JURÍDICO ============ -->
+<!-- JURÍDICO -->
 <div class="area-block open" data-area="juridico" id="area-juridico">
   <div class="area-header" style="border-color:#a855f7" onclick="toggleArea('area-juridico')">
     <div><span class="area-name" style="color:#a06bd4">Jurídico</span><span class="area-sub">· Owner a definir</span></div>
-    <div class="area-count">9 processos</div>
-    <div class="expand-icon">+</div>
+    <div class="area-count">9 processos</div><div class="expand-icon">+</div>
   </div>
   <div class="proc-table">
     <div class="table-head"><div>Processo</div><div>Criação</div><div>Documentação</div><div>Capacitação</div><div>② Torre</div><div>Template</div><div>Data Auditoria</div></div>
@@ -270,13 +204,11 @@ body{font-family:system-ui,sans-serif;font-size:13px;background:#0f1117;color:#e
     <div class="proc-row" data-pid="jur-9"><div class="proc-name">Societário e Governança</div><div><span class="badge b-todo">A definir</span></div><div><span class="badge b-todo">A definir</span></div><div><span class="badge b-todo">A definir</span></div><div><span class="badge b-todo">A definir</span></div><div>—</div><div><span class="aud-date" id="ad-jur-9">—</span></div></div>
   </div>
 </div>
-
-<!-- ============ DEPTO PESSOAL ============ -->
+<!-- DEPTO PESSOAL -->
 <div class="area-block open" data-area="dp" id="area-dp">
   <div class="area-header" style="border-color:#f59e0b" onclick="toggleArea('area-dp')">
     <div><span class="area-name" style="color:#d4a46b">Departamento Pessoal</span><span class="area-sub">· Leticia Bassin</span></div>
-    <div class="area-count">7 processos</div>
-    <div class="expand-icon">+</div>
+    <div class="area-count">7 processos</div><div class="expand-icon">+</div>
   </div>
   <div class="proc-table">
     <div class="table-head"><div>Processo</div><div>Criação</div><div>Documentação</div><div>Capacitação</div><div>② Torre</div><div>Template</div><div>Data Auditoria</div></div>
@@ -289,15 +221,11 @@ body{font-family:system-ui,sans-serif;font-size:13px;background:#0f1117;color:#e
     <div class="proc-row" data-pid="dp-7"><div class="proc-name">Atendimento fiscalização e perícias</div><div><span class="badge b-todo">A definir</span></div><div><span class="badge b-todo">A definir</span></div><div><span class="badge b-todo">A definir</span></div><div><span class="badge b-todo">A definir</span></div><div>—</div><div><span class="aud-date" id="ad-dp-7">—</span></div></div>
   </div>
 </div>
-
-<!-- ===== MODAL CALENDÁRIO ===== -->
+<!-- MODAL CALENDÁRIO -->
 <div class="modal-overlay" id="modal-cal">
   <div class="modal cal-modal">
     <div class="modal-close"><button onclick="closeCalModal()">✕ fechar</button></div>
-    <div class="cal-hdr">
-      <h2>📅 Calendário de Auditorias 2026</h2>
-      <p>Defina a data de auditoria para cada processo — aparecerá na coluna "Data Auditoria" do inventário</p>
-    </div>
+    <div class="cal-hdr"><h2>📅 Calendário de Auditorias 2026</h2><p>Defina a data de auditoria para cada processo</p></div>
     <div class="cal-body" id="cal-body"></div>
     <div class="cal-footer">
       <button class="btn-cancel" onclick="closeCalModal()">Cancelar</button>
@@ -305,249 +233,13 @@ body{font-family:system-ui,sans-serif;font-size:13px;background:#0f1117;color:#e
     </div>
   </div>
 </div>
-
-<!-- ===== MODAL 1: ESCRITURAÇÃO NF ===== -->
-<div class="modal-overlay" id="modal">
-  <div class="modal">
-    <div class="modal-close"><button onclick="closeModal()">✕ fechar template</button></div>
-    <div class="tf-wrap">
-      <div class="tf-hdr"><div><h2>Torre de Controle — Escriturações de Entrada de NF</h2><p>Fiscal · Geisi Santos · Template v1 · Conta corrente de processos por obrigação</p></div><div style="text-align:right;font-size:11px;color:#aaa">Ref: Abr/2026</div></div>
-      <div class="tf-tabs"><div class="tf-tab active" onclick="tfTab('cc',this)">Conta corrente</div><div class="tf-tab" onclick="tfTab('sla',this)">SLA por etapa</div><div class="tf-tab" onclick="tfTab('hist',this)">Histórico</div></div>
-      <div class="tf-tab-content active" id="tf-cc">
-        <div class="tf-sumbar"><div class="tf-sb"><div class="tf-sb-l">Saldo inicial</div><div class="tf-sb-v" style="color:#6b9fd4">18</div><div class="tf-sb-d">NFs em aberto</div></div><div class="tf-sb"><div class="tf-sb-l">+ Entradas</div><div class="tf-sb-v" style="color:#e2e8f0">142</div><div class="tf-sb-d">NFs recebidas no mês</div></div><div class="tf-sb"><div class="tf-sb-l">− Saídas</div><div class="tf-sb-v" style="color:#4ade80">138</div><div class="tf-sb-d">NFs escrituradas</div></div><div class="tf-sb"><div class="tf-sb-l">= Saldo final</div><div class="tf-sb-v" style="color:#fbbf24">22</div><div class="tf-sb-d">Em processamento</div></div><div class="tf-sb"><div class="tf-sb-l">Atrasadas (SLA)</div><div class="tf-sb-v" style="color:#f87171">5</div><div class="tf-sb-d">Acima do prazo D+2</div></div></div>
-        <div class="tf-filter"><button class="tf-fb active" onclick="tfFilter('all',this)">Todas</button><button class="tf-fb" onclick="tfFilter('fed',this)">Federal</button><button class="tf-fb" onclick="tfFilter('est',this)">Estadual</button><button class="tf-fb" onclick="tfFilter('mun',this)">Municipal</button></div>
-        <div class="tf-table-head"><div>Tipo de NF / Obrigação</div><div>Esfera</div><div>Saldo ini.</div><div>Entradas</div><div>Saídas</div><div>Saldo fin.</div><div>Status / Etapa atual</div></div>
-        <div class="tf-row" onclick="tfToggle('nf1','icon-nf1')"><div style="font-size:12px;font-weight:600;color:#e2e8f0">SPED Fiscal (EFD ICMS/IPI)</div><div><span class="esf esf-e">Estadual</span></div><div style="font-size:12px;color:#94a3b8">3</div><div style="font-size:12px;color:#94a3b8">28</div><div style="font-size:12px;color:#4ade80">27</div><div style="font-size:13px;font-weight:700;color:#fbbf24">4</div><div style="display:flex;align-items:center;gap:8px"><span class="tf-badge tb-going">▶ 7 em andamento</span><span style="font-size:10px;color:#475569" id="icon-nf1">▶ expandir</span></div></div>
-        <div class="tf-detail" id="nf1"><div style="font-size:10px;color:#475569;margin-bottom:6px;text-transform:uppercase;letter-spacing:.05em">Fluxo: 1. Extração dados ERP → 2. Validação → 3. Transmissão SEFAZ → 4. Recibo · SLA: D+20 mês</div><div class="cnpj-row"><div class="cnpj-label">Matriz PR</div><div class="cnpj-etapa">Etapa 3 — Transmissão</div><div class="cnpj-prog"><div class="cnpj-step cs-done"></div><div class="cnpj-step cs-done"></div><div class="cnpj-step cs-active"></div><div class="cnpj-step cs-pend"></div></div><div><span class="tf-badge tb-going" style="font-size:9px">No prazo</span></div></div><div class="cnpj-row"><div class="cnpj-label">Filial SP</div><div class="cnpj-etapa">Etapa 2 — Validação</div><div class="cnpj-prog"><div class="cnpj-step cs-done"></div><div class="cnpj-step cs-active"></div><div class="cnpj-step cs-pend"></div><div class="cnpj-step cs-pend"></div></div><div><span class="tf-badge tb-going" style="font-size:9px">No prazo</span></div></div><div class="cnpj-row"><div class="cnpj-label">Filial ES</div><div class="cnpj-etapa">Etapa 1 — Extração</div><div class="cnpj-prog"><div class="cnpj-step cs-active"></div><div class="cnpj-step cs-pend"></div><div class="cnpj-step cs-pend"></div><div class="cnpj-step cs-pend"></div></div><div><span class="tf-badge tb-late" style="font-size:9px">Atrasado 2d</span></div></div><div class="cnpj-row"><div class="cnpj-label">Filial RJ</div><div class="cnpj-etapa">Etapa 4 — Recibo</div><div class="cnpj-prog"><div class="cnpj-step cs-done"></div><div class="cnpj-step cs-done"></div><div class="cnpj-step cs-done"></div><div class="cnpj-step cs-done"></div></div><div><span class="tf-badge tb-ok" style="font-size:9px">Concluído ✓</span></div></div></div>
-        <div class="tf-row" onclick="tfToggle('nf2','icon-nf2')"><div style="font-size:12px;font-weight:600;color:#e2e8f0">EFD Contribuições (PIS/COFINS)</div><div><span class="esf esf-f">Federal</span></div><div style="font-size:12px;color:#94a3b8">5</div><div style="font-size:12px;color:#94a3b8">52</div><div style="font-size:12px;color:#4ade80">51</div><div style="font-size:13px;font-weight:700;color:#fbbf24">6</div><div><span class="tf-badge tb-going">▶ 5 em andamento</span> <span style="font-size:10px;color:#475569" id="icon-nf2">▶ expandir</span></div></div>
-        <div class="tf-detail" id="nf2"><div style="font-size:10px;color:#475569;margin-bottom:6px;text-transform:uppercase;letter-spacing:.05em">Fluxo: 1. Apuração PIS/COFINS → 2. Conferência → 3. Geração arquivo → 4. Transmissão · SLA: D+20</div><div class="cnpj-row"><div class="cnpj-label">Matriz PR</div><div class="cnpj-etapa">Etapa 3 — Geração</div><div class="cnpj-prog"><div class="cnpj-step cs-done"></div><div class="cnpj-step cs-done"></div><div class="cnpj-step cs-active"></div><div class="cnpj-step cs-pend"></div></div><div><span class="tf-badge tb-going" style="font-size:9px">No prazo</span></div></div><div class="cnpj-row"><div class="cnpj-label">Filial SP</div><div class="cnpj-etapa">Etapa 2 — Conferência</div><div class="cnpj-prog"><div class="cnpj-step cs-done"></div><div class="cnpj-step cs-active"></div><div class="cnpj-step cs-pend"></div><div class="cnpj-step cs-pend"></div></div><div><span class="tf-badge tb-late" style="font-size:9px">Atrasado 1d</span></div></div></div>
-        <div class="tf-row" onclick="tfToggle('nf3','icon-nf3')"><div style="font-size:12px;font-weight:600;color:#e2e8f0">NF-e entrada manual (exceções)</div><div><span class="esf esf-f">Federal</span></div><div style="font-size:12px;color:#94a3b8">10</div><div style="font-size:12px;color:#94a3b8">38</div><div style="font-size:12px;color:#4ade80">37</div><div style="font-size:13px;font-weight:700;color:#f87171">11</div><div><span class="tf-badge tb-late">! 3 atrasadas</span> <span style="font-size:10px;color:#475569" id="icon-nf3">▶ expandir</span></div></div>
-        <div class="tf-detail" id="nf3"><div style="font-size:10px;color:#475569;margin-bottom:6px;text-transform:uppercase;letter-spacing:.05em">Fluxo: 1. Recebimento NF → 2. Validação fiscal → 3. Escrituração manual → 4. Conferência · SLA: D+2</div><div class="cnpj-row"><div class="cnpj-label">Diversos CNPJs</div><div class="cnpj-etapa">3 NFs na etapa 2 — vencidas D+2</div><div class="cnpj-prog"><div class="cnpj-step cs-done"></div><div class="cnpj-step cs-late"></div><div class="cnpj-step cs-pend"></div><div class="cnpj-step cs-pend"></div></div><div><span class="tf-badge tb-late" style="font-size:9px">Atrasado</span></div></div></div>
-        <div class="tf-row"><div style="font-size:12px;font-weight:600;color:#e2e8f0">DARF IRPJ/CSLL</div><div><span class="esf esf-f">Federal</span></div><div style="font-size:12px;color:#94a3b8">0</div><div style="font-size:12px;color:#94a3b8">24</div><div style="font-size:12px;color:#4ade80">24</div><div style="font-size:13px;font-weight:700;color:#4ade80">0</div><div><span class="tf-badge tb-ok">✅ Zerado</span></div></div>
-      </div>
-      <div class="tf-tab-content" id="tf-sla"><div style="padding:24px;text-align:center;color:#475569"><div style="font-size:28px;margin-bottom:10px">⏱</div><div style="font-size:13px;font-weight:600;color:#64748b;margin-bottom:6px">Análise de SLA por etapa — a construir com Geisi</div></div></div>
-      <div class="tf-tab-content" id="tf-hist"><div style="padding:24px;text-align:center;color:#475569"><div style="font-size:28px;margin-bottom:10px">📋</div><div style="font-size:13px;font-weight:600;color:#64748b;margin-bottom:6px">Histórico mensal — a construir</div></div></div>
-      <div class="tf-ftr">Template v1 · Escriturações NF · Fiscal MadeiraMadeira · Construído 03/Abr/2026 · Ref: Abr/2026</div>
-    </div>
+<!-- MODAL MÓDULOS -->
+<div class="modal-overlay" id="module-overlay">
+  <div class="modal" id="module-container">
+    <div class="module-loading">⏳ Carregando módulo…</div>
   </div>
 </div>
-
-<!-- ===== MODAL 2: APURAÇÃO ===== -->
-<div class="modal-overlay" id="modal2">
-  <div class="modal">
-    <div class="modal-close"><button onclick="closeModal2()">✕ fechar template</button></div>
-    <div class="tf-wrap">
-      <div class="tf-hdr"><div><h2>Torre de Controle — Apuração e Entrega de Obrigações</h2><p>Fiscal · Geisi Santos · Template v3 · Conta corrente de processos por obrigação · Federal, Estadual e Municipal</p></div><div style="text-align:right;font-size:11px;color:#aaa">Ref: Abr/2026</div></div>
-      <div class="tf-tabs"><div class="tf-tab active" onclick="tfTab2('cc',this)">Conta corrente</div><div class="tf-tab" onclick="tfTab2('sla',this)">SLA por obrigação</div><div class="tf-tab" onclick="tfTab2('hist',this)">Histórico</div></div>
-      <div class="tf-tab-content active" id="tf2-cc">
-        <div class="tf-sumbar"><div class="tf-sb"><div class="tf-sb-l">Saldo inicial</div><div class="tf-sb-v" style="color:#6b9fd4">12</div><div class="tf-sb-d">obrigações em aberto</div></div><div class="tf-sb"><div class="tf-sb-l">+ Entradas mês</div><div class="tf-sb-v" style="color:#e2e8f0">89</div><div class="tf-sb-d">competência Abr/26</div></div><div class="tf-sb"><div class="tf-sb-l">− Saídas</div><div class="tf-sb-v" style="color:#4ade80">68</div><div class="tf-sb-d">entregues/pagas</div></div><div class="tf-sb"><div class="tf-sb-l">= Saldo final</div><div class="tf-sb-v" style="color:#fbbf24">33</div><div class="tf-sb-d">em processamento</div></div><div class="tf-sb"><div class="tf-sb-l">Atrasadas</div><div class="tf-sb-v" style="color:#f87171">27</div><div class="tf-sb-d">DCTFWeb vencidas</div></div></div>
-        <div class="tf-filter"><button class="tf-fb active" onclick="tf2Filter('all',this)">Todas</button><button class="tf-fb" onclick="tf2Filter('fed',this)">🇧🇷 Federal</button><button class="tf-fb" onclick="tf2Filter('est',this)">🏛️ Estadual</button><button class="tf-fb" onclick="tf2Filter('mun',this)">🏙️ Municipal</button></div>
-        <div style="font-size:10px;font-weight:700;color:#6b9fd4;text-transform:uppercase;letter-spacing:.07em;padding:10px 4px 6px;border-bottom:1px solid #1e293b;margin-bottom:4px" data-esf="fed">🇧🇷 Federal — Obrigações Principais <span style="font-weight:400;color:#475569">· Saldo acum: 3 abertos</span></div>
-        <div class="tf-table-head" style="grid-template-columns:180px 80px 60px 60px 60px 70px 1fr"><div>Obrigação</div><div>Esfera</div><div>Saldo ini.</div><div>Entradas</div><div>Saídas</div><div>Saldo fin.</div><div>Status</div></div>
-        <div class="tf-row" style="grid-template-columns:180px 80px 60px 60px 60px 70px 1fr" onclick="tfToggle2('ob1','icon-ob1')" data-esf="fed"><div style="font-size:12px;font-weight:600;color:#e2e8f0">DARF IRPJ/CSLL <span id="icon-ob1" style="font-size:10px;color:#475569">▶</span></div><div><span class="esf esf-f">Federal</span></div><div style="font-size:12px;color:#94a3b8">0</div><div style="font-size:12px;color:#94a3b8">24</div><div style="font-size:12px;color:#4ade80">24</div><div style="font-size:13px;font-weight:700;color:#4ade80">0 ✓</div><div><span class="tf-badge tb-ok">✅ Regular</span></div></div>
-        <div class="tf-detail" id="ob1"><div style="font-size:10px;color:#475569;margin-bottom:6px;text-transform:uppercase;letter-spacing:.05em">Fluxo: 1. Apuração IRPJ/CSLL → 2. Gerar DARF → 3. Pagamento → 4. Arquivo · SLA: D+20 · Vence dia 20</div><div class="cnpj-row"><div class="cnpj-label">Todos CNPJs</div><div class="cnpj-etapa">Etapa 4 — Arquivo concluído</div><div class="cnpj-prog"><div class="cnpj-step cs-done"></div><div class="cnpj-step cs-done"></div><div class="cnpj-step cs-done"></div><div class="cnpj-step cs-done"></div></div><div><span class="tf-badge tb-ok" style="font-size:9px">Concluído ✓</span></div></div></div>
-        <div class="tf-row" style="grid-template-columns:180px 80px 60px 60px 60px 70px 1fr" onclick="tfToggle2('ob2','icon-ob2')" data-esf="fed"><div style="font-size:12px;font-weight:600;color:#e2e8f0">FGTS (GPS) <span id="icon-ob2" style="font-size:10px;color:#475569">▶</span></div><div><span class="esf esf-f">Federal</span></div><div style="font-size:12px;color:#94a3b8">0</div><div style="font-size:12px;color:#94a3b8">8</div><div style="font-size:12px;color:#4ade80">5</div><div style="font-size:13px;font-weight:700;color:#fbbf24">3</div><div><span class="tf-badge tb-going">▶ Em andamento</span></div></div>
-        <div class="tf-detail" id="ob2"><div style="font-size:10px;color:#475569;margin-bottom:6px">Fluxo: 1. Apuração eSocial → 2. Gerar GPS → 3. Pagamento → 4. Arquivo · SLA: D+7</div><div class="cnpj-row"><div class="cnpj-label">Matriz PR</div><div class="cnpj-etapa">Etapa 3 — Pagamento</div><div class="cnpj-prog"><div class="cnpj-step cs-done"></div><div class="cnpj-step cs-done"></div><div class="cnpj-step cs-active"></div><div class="cnpj-step cs-pend"></div></div><div><span class="tf-badge tb-going" style="font-size:9px">No prazo</span></div></div><div class="cnpj-row"><div class="cnpj-label">Filial SP</div><div class="cnpj-etapa">Etapa 2 — GPS Gerada</div><div class="cnpj-prog"><div class="cnpj-step cs-done"></div><div class="cnpj-step cs-active"></div><div class="cnpj-step cs-pend"></div><div class="cnpj-step cs-pend"></div></div><div><span class="tf-badge tb-going" style="font-size:9px">No prazo</span></div></div></div>
-        <div style="font-size:10px;font-weight:700;color:#6b9fd4;text-transform:uppercase;letter-spacing:.07em;padding:14px 4px 6px;border-bottom:1px solid #1e293b;margin-bottom:4px" data-esf="fed">🇧🇷 Federal — Obrigações Acessórias <span style="font-weight:400;color:#f87171">· 27 atrasadas (DCTFWeb)</span></div>
-        <div class="tf-row" style="grid-template-columns:180px 80px 60px 60px 60px 70px 1fr" onclick="tfToggle2('ob3','icon-ob3')" data-esf="fed"><div style="font-size:12px;font-weight:600;color:#f87171">DCTFWeb <span id="icon-ob3" style="font-size:10px;color:#475569">▶</span></div><div><span class="esf esf-f">Federal</span></div><div style="font-size:12px;color:#94a3b8">10</div><div style="font-size:12px;color:#94a3b8">44</div><div style="font-size:12px;color:#4ade80">27</div><div style="font-size:13px;font-weight:700;color:#f87171">27</div><div><span class="tf-badge tb-late">! 27 atrasadas</span></div></div>
-        <div class="tf-detail" id="ob3"><div style="font-size:10px;color:#475569;margin-bottom:6px">27 omissas vencidas · SLA: D+15</div><div class="cnpj-row" style="background:#2a1515"><div class="cnpj-label" style="color:#f87171">27 CNPJs</div><div class="cnpj-etapa" style="color:#f87171">Omissas — não transmitidas</div><div class="cnpj-prog"><div class="cnpj-step cs-pend"></div><div class="cnpj-step cs-pend"></div><div class="cnpj-step cs-pend"></div><div class="cnpj-step cs-pend"></div></div><div><span class="tf-badge tb-late" style="font-size:9px">Crítico</span></div></div></div>
-        <div class="tf-row" style="grid-template-columns:180px 80px 60px 60px 60px 70px 1fr" data-esf="fed"><div style="font-size:12px;font-weight:600;color:#e2e8f0">EFD-Contribuições (PIS/COFINS)</div><div><span class="esf esf-f">Federal</span></div><div style="font-size:12px;color:#94a3b8">0</div><div style="font-size:12px;color:#94a3b8">27</div><div style="font-size:12px;color:#4ade80">27</div><div style="font-size:13px;font-weight:700;color:#4ade80">0 ✓</div><div><span class="tf-badge tb-ok">✅ Regular</span></div></div>
-        <div style="font-size:10px;font-weight:700;color:#6baa6b;text-transform:uppercase;letter-spacing:.07em;padding:14px 4px 6px;border-bottom:1px solid #1e293b;margin-bottom:4px" data-esf="est">🏛️ Estadual <span style="font-weight:400;color:#475569">· Saldo acum: 9 em andamento</span></div>
-        <div class="tf-row" style="grid-template-columns:180px 80px 60px 60px 60px 70px 1fr" onclick="tfToggle2('ob4','icon-ob4')" data-esf="est"><div style="font-size:12px;font-weight:600;color:#e2e8f0">EFD ICMS/IPI (SPED) <span id="icon-ob4" style="font-size:10px;color:#475569">▶</span></div><div><span class="esf esf-e">Estadual</span></div><div style="font-size:12px;color:#94a3b8">3</div><div style="font-size:12px;color:#94a3b8">28</div><div style="font-size:12px;color:#4ade80">24</div><div style="font-size:13px;font-weight:700;color:#fbbf24">7</div><div><span class="tf-badge tb-going">▶ 7 em andamento</span></div></div>
-        <div class="tf-detail" id="ob4"><div style="font-size:10px;color:#475569;margin-bottom:6px">Fluxo: 1. Escrituração → 2. Validação → 3. Transmissão SEFAZ → 4. Recibo · SLA: D+20</div><div class="cnpj-row"><div class="cnpj-label">Matriz PR</div><div class="cnpj-etapa">Etapa 3</div><div class="cnpj-prog"><div class="cnpj-step cs-done"></div><div class="cnpj-step cs-done"></div><div class="cnpj-step cs-active"></div><div class="cnpj-step cs-pend"></div></div><div><span class="tf-badge tb-going" style="font-size:9px">No prazo</span></div></div><div class="cnpj-row"><div class="cnpj-label">Filial ES</div><div class="cnpj-etapa">Etapa 1</div><div class="cnpj-prog"><div class="cnpj-step cs-active"></div><div class="cnpj-step cs-pend"></div><div class="cnpj-step cs-pend"></div><div class="cnpj-step cs-pend"></div></div><div><span class="tf-badge tb-late" style="font-size:9px">Atrasado 2d</span></div></div></div>
-        <div class="tf-row" style="grid-template-columns:180px 80px 60px 60px 60px 70px 1fr" data-esf="est"><div style="font-size:12px;font-weight:600;color:#e2e8f0">GNRE / ICMS</div><div><span class="esf esf-e">Estadual</span></div><div style="font-size:12px;color:#94a3b8">0</div><div style="font-size:12px;color:#94a3b8">9</div><div style="font-size:12px;color:#4ade80">7</div><div style="font-size:13px;font-weight:700;color:#fbbf24">2</div><div><span class="tf-badge tb-going">▶ 2 abertos</span></div></div>
-        <div style="font-size:10px;font-weight:700;color:#a06bd4;text-transform:uppercase;letter-spacing:.07em;padding:14px 4px 6px;border-bottom:1px solid #1e293b;margin-bottom:4px" data-esf="mun">🏙️ Municipal <span style="font-weight:400;color:#475569">· Saldo acum: 4 em andamento</span></div>
-        <div class="tf-row" style="grid-template-columns:180px 80px 60px 60px 60px 70px 1fr" data-esf="mun"><div style="font-size:12px;font-weight:600;color:#e2e8f0">ISS Municipal (NFS-e)</div><div><span class="esf esf-m">Municipal</span></div><div style="font-size:12px;color:#94a3b8">0</div><div style="font-size:12px;color:#94a3b8">10</div><div style="font-size:12px;color:#4ade80">6</div><div style="font-size:13px;font-weight:700;color:#fbbf24">4</div><div><span class="tf-badge tb-going">▶ 4 abertos</span></div></div>
-      </div>
-      <div class="tf-tab-content" id="tf2-sla"><div style="padding:16px"><div class="tf-table-head" style="grid-template-columns:180px 80px 70px 80px 1fr"><div>Obrigação</div><div>Esfera</div><div>SLA meta</div><div>Vencimento</div><div>Responsável</div></div><div class="tf-row" style="grid-template-columns:180px 80px 70px 80px 1fr"><div style="font-size:12px;color:#e2e8f0">FGTS (GPS)</div><div><span class="esf esf-f">Federal</span></div><div style="font-size:12px;color:#4ade80">D+7</div><div style="font-size:12px;font-weight:600">Dia 7</div><div style="font-size:12px;color:#94a3b8">CSC (Cris)</div></div><div class="tf-row" style="grid-template-columns:180px 80px 70px 80px 1fr"><div style="font-size:12px;color:#e2e8f0">ISS Municipal</div><div><span class="esf esf-m">Municipal</span></div><div style="font-size:12px;color:#4ade80">D+10</div><div style="font-size:12px;font-weight:600">Dia 10</div><div style="font-size:12px;color:#94a3b8">Geisi + CSC</div></div><div class="tf-row" style="grid-template-columns:180px 80px 70px 80px 1fr"><div style="font-size:12px;color:#f87171;font-weight:600">DCTFWeb</div><div><span class="esf esf-f">Federal</span></div><div style="font-size:12px;color:#fbbf24">D+15</div><div style="font-size:12px;font-weight:600;color:#f87171">15/Mar ⚠️</div><div style="font-size:12px;color:#94a3b8">Geisi</div></div><div class="tf-row" style="grid-template-columns:180px 80px 70px 80px 1fr"><div style="font-size:12px;color:#e2e8f0">DARF IRPJ/CSLL</div><div><span class="esf esf-f">Federal</span></div><div style="font-size:12px;color:#4ade80">D+20</div><div style="font-size:12px;font-weight:600">Dia 20</div><div style="font-size:12px;color:#94a3b8">Geisi + CSC</div></div></div></div>
-      <div class="tf-tab-content" id="tf2-hist"><div style="padding:24px;text-align:center;color:#475569"><div style="font-size:28px;margin-bottom:10px">📋</div><div style="font-size:13px;font-weight:600;color:#64748b">Histórico mensal — a construir</div></div></div>
-      <div class="tf-ftr">Template v3 · Apuração e Entrega de Obrigações · Fiscal MadeiraMadeira · Construído 03/Abr/2026</div>
-    </div>
-  </div>
-</div>
-
-<!-- ===== MODAL 3: C/P INDIRETOS IMPOSTOS ===== -->
-<div class="modal-overlay" id="modal3">
-  <div class="modal">
-    <div class="modal-close"><button onclick="closeModal3()">✕ fechar template</button></div>
-    <div style="all:unset;display:block;font-family:system-ui,sans-serif;font-size:13px;color:#e2e8f0">
-<style>
-.m3-hdr{background:#0c1a2e;padding:14px 20px;border-bottom:2px solid #1e3a5f}.m3-hdr h2{font-size:14px;font-weight:700;color:#fff;margin:0}.m3-hdr p{font-size:11px;color:#64748b;margin-top:2px}.m3-hdr-link{display:inline-flex;align-items:center;gap:5px;font-size:10px;color:#6b9fd4;background:#1e3a5f;border-radius:4px;padding:2px 8px;margin-top:5px}.m3-conn{background:#0d1a2e;border-bottom:1px solid #1e3a5f;padding:7px 20px;display:flex;align-items:center;gap:8px;font-size:11px;color:#475569;flex-wrap:wrap}.m3-conn-dot{width:8px;height:8px;border-radius:50%;background:#6366f1;flex-shrink:0}.m3-step{display:inline-flex;align-items:center;gap:4px;background:#1e293b;border-radius:4px;padding:2px 7px;font-size:10px;color:#94a3b8}.m3-arr{color:#334155;margin:0 4px}.m3-sumbar{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;padding:12px 20px;background:#0d1520;border-bottom:1px solid #1e293b}.m3-sb{background:#161b27;border:1px solid #1e293b;border-radius:7px;padding:8px 12px;text-align:center}.m3-sb-l{font-size:9px;color:#475569;text-transform:uppercase;letter-spacing:.05em;margin-bottom:3px}.m3-sb-v{font-size:18px;font-weight:700}.m3-filters{display:flex;gap:6px;padding:10px 20px;border-bottom:1px solid #1e293b;flex-wrap:wrap;align-items:center}.m3-flabel{font-size:11px;color:#475569;margin-right:2px}.m3-fb{font-size:11px;padding:4px 11px;border-radius:5px;border:1px solid #1e293b;background:#161b27;color:#64748b;cursor:pointer;transition:all .15s}.m3-fb:hover{border-color:#6366f1;color:#a5b4fc}.m3-fb.active{background:#6366f1;border-color:#6366f1;color:#fff;font-weight:600}.m3-expand-all{margin-left:auto;font-size:11px;padding:4px 12px;border-radius:5px;border:1px solid #1e293b;background:#161b27;color:#64748b;cursor:pointer}.m3-legend{display:flex;gap:16px;padding:8px 20px;border-bottom:1px solid #131922;flex-wrap:wrap}.m3-leg{display:flex;align-items:center;gap:5px;font-size:10px;color:#475569}.m3-leg-badge{padding:1px 7px;border-radius:99px;font-size:9px;font-weight:700}.m3-tbl-head{display:grid;grid-template-columns:28px 1fr 90px 56px 56px 56px 72px 130px;gap:0;padding:7px 20px;background:#0a0e17;font-size:9px;font-weight:700;color:#334155;text-transform:uppercase;letter-spacing:.07em;border-bottom:1px solid #1e293b}.m3-period-label{padding:7px 20px;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:#334155;background:#0a0e17;border-bottom:1px solid #131922;display:flex;align-items:center;gap:8px;cursor:pointer;user-select:none}.m3-period-label:hover{background:#0d1117}.m3-period-toggle{color:#334155;font-size:11px;transition:transform .2s;margin-left:auto}.m3-period-group.open .m3-period-toggle{transform:rotate(90deg)}.m3-period-body{display:none}.m3-period-group.open .m3-period-body{display:block}.m3-imp-row{display:grid;grid-template-columns:28px 1fr 90px 56px 56px 56px 72px 130px;gap:0;border-bottom:1px solid #131922;cursor:pointer;transition:background .1s}.m3-imp-row:hover{background:#161b27}.m3-imp-row.open{background:#131922}.m3-imp-cell{padding:10px 8px;display:flex;align-items:center;font-size:12px}.m3-imp-cell:first-child{padding-left:20px;justify-content:center}.m3-imp-name{font-weight:600;color:#e2e8f0;line-height:1.3}.m3-imp-meta{font-size:10px;color:#475569;margin-top:2px}.m3-imp-toggle{width:16px;height:16px;border-radius:3px;background:#1e293b;display:flex;align-items:center;justify-content:center;font-size:10px;color:#475569;transition:all .15s;flex-shrink:0}.m3-imp-row.open .m3-imp-toggle{background:#6366f1;color:#fff}.m3-num{justify-content:center;font-size:13px;font-weight:700}.m3-n-ini{color:#64748b}.m3-n-ent{color:#94a3b8}.m3-n-sai{color:#4ade80}.m3-n-ok{color:#4ade80}.m3-n-warn{color:#fbbf24}.m3-n-late{color:#f87171}.m3-fiscal-tag{display:inline-flex;align-items:center;gap:4px;font-size:9px;color:#6366f1;background:#1a1a3e;border:1px solid #312e81;border-radius:3px;padding:1px 6px;white-space:nowrap}.m3-cnpj-body{display:none;background:#090d14;border-bottom:1px solid #1e293b}.m3-imp-row.open + .m3-cnpj-body{display:block}.m3-cnpj-head{display:grid;grid-template-columns:44px 1fr 110px 160px 100px 110px;gap:0;padding:6px 20px 6px 44px;font-size:9px;font-weight:700;color:#1e293b;text-transform:uppercase;letter-spacing:.06em;background:#0a0e17;border-bottom:1px solid #131922}.m3-cnpj-row{display:grid;grid-template-columns:44px 1fr 110px 160px 100px 110px;gap:0;padding:9px 20px 9px 44px;border-bottom:1px solid #0f1520;align-items:center}.m3-cnpj-row:last-child{border-bottom:none}.m3-cnpj-row:hover{background:#0d1520}.m3-cnpj-idx{font-size:10px;color:#334155;font-weight:600}.m3-cnpj-label{font-size:12px;color:#cbd5e1;font-weight:500}.m3-cnpj-cnpj{font-size:10px;color:#334155;margin-top:1px}.m3-liq-normal{display:inline-flex;align-items:center;gap:4px;background:#0d2820;color:#4ade80;border-radius:4px;padding:3px 8px;font-size:10px;font-weight:600}.m3-liq-judicial{display:inline-flex;align-items:center;gap:4px;background:#251a3e;color:#a06bd4;border-radius:4px;padding:3px 8px;font-size:10px;font-weight:600}.m3-liq-parcel{display:inline-flex;align-items:center;gap:4px;background:#2e2010;color:#fbbf24;border-radius:4px;padding:3px 8px;font-size:10px;font-weight:600}.m3-liq-aguard{display:inline-flex;align-items:center;gap:4px;background:#1a2234;color:#475569;border-radius:4px;padding:3px 8px;font-size:10px;font-weight:600}.m3-steps{display:flex;align-items:center;gap:3px}.m3-step-block{display:flex;flex-direction:column;align-items:center;gap:2px}.m3-step-dot{width:24px;height:6px;border-radius:2px}.m3-step-num{font-size:8px;color:#334155}.m3-sd-done{background:#4ade80}.m3-sd-active{background:#6b9fd4}.m3-sd-wait{background:#1e293b}.m3-sd-late{background:#f87171}.m3-sd-jud{background:#a06bd4}.m3-step-conn{width:8px;height:2px;background:#1e293b;margin-bottom:6px}.m3-badge{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:99px;font-size:10px;font-weight:600;white-space:nowrap}.m3-b-ok{background:#0d2820;color:#4ade80}.m3-b-going{background:#1e3a5f;color:#6b9fd4}.m3-b-late{background:#2a1515;color:#f87171}.m3-b-pend{background:#1a2234;color:#475569}.m3-b-jud{background:#251a3e;color:#a06bd4}.m3-b-parcel{background:#2e2010;color:#fbbf24}.m3-prazo-ok{color:#4ade80;font-size:11px;font-weight:600}.m3-prazo-warn{color:#fbbf24;font-size:11px;font-weight:600}.m3-prazo-late{color:#f87171;font-size:11px;font-weight:600}.m3-prazo-pend{color:#334155;font-size:11px}.m3-prazo-jud{color:#a06bd4;font-size:11px;font-weight:600}.m3-cnpj-batch{padding:10px 20px 10px 44px;font-size:12px;color:#64748b;display:flex;align-items:center;gap:10px;border-bottom:1px solid #0f1520}.m3-ftr{padding:10px 20px;font-size:10px;color:#1e293b;border-top:1px solid #131922;text-align:center}
-</style>
-      <div class="m3-hdr"><div><h2>Torre de Controle — C/P Indiretos Impostos</h2><p>CSC-financeiro · Cris Ongaro · Template v1 · Conta corrente por imposto → detalhe por CNPJ</p><div class="m3-hdr-link">⇄ Integrado com: Torre de Controle Fiscal — Apuração e Entrega de Obrigações</div></div></div>
-      <div class="m3-conn"><div class="m3-conn-dot"></div><span>Conexão com Fiscal:</span><span class="m3-step">Fiscal: Gerar guia/DARF/GPS</span><span class="m3-arr">→</span><span class="m3-step">✉ Guia enviada ao Financeiro</span><span class="m3-arr">→</span><span style="color:#6b9fd4;font-weight:600">Entrada neste template</span><span class="m3-arr">·</span><span style="color:#475569">Guias avulsas (ex: GNRE) entram por demanda sem vínculo de ciclo</span></div>
-      <div class="m3-sumbar"><div class="m3-sb"><div class="m3-sb-l">Saldo inicial</div><div class="m3-sb-v" style="color:#6b9fd4">5</div></div><div class="m3-sb"><div class="m3-sb-l">+ Entradas (guias recebidas)</div><div class="m3-sb-v" style="color:#94a3b8">28</div></div><div class="m3-sb"><div class="m3-sb-l">− Saídas (pagas/depositadas)</div><div class="m3-sb-v" style="color:#4ade80">21</div></div><div class="m3-sb"><div class="m3-sb-l">= Saldo final</div><div class="m3-sb-v" style="color:#fbbf24">12</div></div><div class="m3-sb"><div class="m3-sb-l">Atrasadas</div><div class="m3-sb-v" style="color:#f87171">3</div></div></div>
-      <div class="m3-filters"><span class="m3-flabel">Periodicidade:</span><button class="m3-fb active" onclick="m3SetFilter('all',this)">Todos</button><button class="m3-fb" onclick="m3SetFilter('mensal',this)">Mensal</button><button class="m3-fb" onclick="m3SetFilter('anual',this)">Anual</button><button class="m3-fb" onclick="m3SetFilter('avulso',this)">Avulso / Demanda</button><span class="m3-flabel" style="margin-left:8px">Tipo:</span><button class="m3-fb" id="m3-jud-btn" onclick="m3SetLiqFilter('jud',this)">⚖ Dep. Judicial</button><button class="m3-fb" id="m3-late-btn" onclick="m3SetLiqFilter('late',this)">! Atrasados</button><button class="m3-expand-all" onclick="m3ToggleAll()">⊞ expandir tudo</button></div>
-      <div class="m3-legend"><span class="m3-leg"><span class="m3-leg-badge" style="background:#0d2820;color:#4ade80">💳 Pgto normal</span></span><span class="m3-leg"><span class="m3-leg-badge" style="background:#251a3e;color:#a06bd4">⚖ Dep. judicial</span></span><span class="m3-leg"><span class="m3-leg-badge" style="background:#2e2010;color:#fbbf24">📋 Parcelamento</span></span><span class="m3-leg"><span class="m3-leg-badge" style="background:#1a2234;color:#475569">⏳ Aguardando guia</span></span></div>
-      <div class="m3-tbl-head"><div></div><div>Imposto / Origem fiscal</div><div style="text-align:center">Periodicidade</div><div style="text-align:center">Ini.</div><div style="text-align:center">+Ent.</div><div style="text-align:center">−Saí.</div><div style="text-align:center">Saldo</div><div style="text-align:center">Status</div></div>
-      <div id="m3-table-body"></div>
-      <div class="m3-ftr">Template v1 · C/P Indiretos Impostos · CSC-financeiro MadeiraMadeira · Abr/2026</div>
-    </div>
-  </div>
-</div>
-
-<!-- ===== MODAL 4: ENTRADA & SAÍDA CNPJs ===== -->
-<div class="modal-overlay" id="modal4">
-  <div class="modal">
-    <div class="modal-close"><button onclick="closeModal4()">✕ fechar template</button></div>
-    <div id="m4-inner">
-<style>
-#m4-inner{font-family:Arial,sans-serif;font-size:13px;color:#333;background:#f0f2f5}
-#m4-inner .m4w{max-width:100%;margin:0 auto}
-#m4-inner .hdr{background:#1a1a2e;padding:18px 28px;display:flex;justify-content:space-between;align-items:center}
-#m4-inner .hdr h1{color:#fff;font-size:16px;font-weight:700}
-#m4-inner .hdr p{color:#aaa;font-size:11px;margin-top:3px}
-#m4-inner .tabs{background:#f4f5f8;border-bottom:2px solid #e4e7ec;display:flex;padding:0 16px}
-#m4-inner .tab{padding:10px 18px;font-size:12px;font-weight:700;color:#888;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;white-space:nowrap}
-#m4-inner .tab.active{color:#1a1a2e;border-bottom-color:#1a1a2e;background:#fff}
-#m4-inner .tab-content{display:none}
-#m4-inner .tab-content.active{display:block}
-#m4-inner .sumbar{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;padding:12px 16px;background:#fff;border-bottom:1px solid #e4e7ec}
-#m4-inner .sb{background:#f8f9fb;border-radius:6px;padding:9px 10px;text-align:center;border:1px solid #e8eaed}
-#m4-inner .sb-l{font-size:9px;color:#999;margin:0 0 3px;text-transform:uppercase;letter-spacing:.04em;line-height:1.3}
-#m4-inner .sb-v{font-size:20px;font-weight:700;color:#1a1a2e}
-#m4-inner .sb-d{font-size:10px;color:#666;margin-top:1px}
-#m4-inner .c-ok{color:#1e7e34}#m4-inner .c-warn{color:#854f0b}#m4-inner .c-danger{color:#a32d2d}#m4-inner .c-info{color:#185FA5}
-#m4-inner .filter-bar{background:#fff;padding:10px 16px;border-bottom:1px solid #e4e7ec;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-#m4-inner .filter-bar span{font-size:11px;color:#888}
-#m4-inner .fbtn{font-size:11px;padding:4px 12px;border-radius:5px;border:1px solid #d0d5dd;background:#fff;color:#555;cursor:pointer}
-#m4-inner .fbtn.active{background:#1a1a2e;color:#fff;border-color:#1a1a2e;font-weight:700}
-#m4-inner .add-btn{margin-left:auto;font-size:11px;padding:5px 14px;border-radius:5px;border:none;background:#185FA5;color:#fff;cursor:pointer;font-weight:700}
-#m4-inner .cnpj-list{background:#fff;padding:0 16px 16px}
-#m4-inner .cnpj-card{border:1px solid #e4e7ec;border-radius:8px;margin-top:12px;overflow:hidden}
-#m4-inner .cnpj-card-hdr{padding:12px 16px;display:flex;align-items:center;gap:12px;cursor:pointer;user-select:none;background:#f8f9fb;border-bottom:1px solid #e4e7ec}
-#m4-inner .cnpj-card-hdr:hover,#m4-inner .cnpj-card-hdr.expanded{background:#f0f2f7}
-#m4-inner .tipo{font-size:11px;font-weight:700;padding:4px 12px;border-radius:12px;white-space:nowrap}
-#m4-inner .tipo-ent{background:#eaf3de;color:#1e7e34;border:1px solid #c0dd97}
-#m4-inner .tipo-sai{background:#fff0f0;color:#a32d2d;border:1px solid #f5c1c1}
-#m4-inner .cnpj-info{flex:1}
-#m4-inner .cnpj-nome{font-size:13px;font-weight:700;color:#1a1a2e}
-#m4-inner .cnpj-num{font-size:11px;color:#888;font-family:monospace;margin-top:1px}
-#m4-inner .cnpj-meta{font-size:10px;color:#aaa;margin-top:2px}
-#m4-inner .prog-wrap{min-width:140px;text-align:right}
-#m4-inner .prog-label{font-size:10px;color:#888;margin-bottom:3px}
-#m4-inner .prog-bar-outer{height:6px;background:#e4e7ec;border-radius:3px;overflow:hidden}
-#m4-inner .prog-bar-inner{height:100%;border-radius:3px}
-#m4-inner .pb-ok{background:#1e7e34}#m4-inner .pb-warn{background:#854f0b}#m4-inner .pb-danger{background:#a32d2d}
-#m4-inner .prog-pct{font-size:11px;font-weight:700;margin-top:3px}
-#m4-inner .exp-icon{font-size:14px;color:#bbb;flex-shrink:0}
-#m4-inner .fases{padding:0}
-#m4-inner .fase{border-top:1px solid #e4e7ec}
-#m4-inner .fase-hdr{display:flex;align-items:center;gap:10px;padding:10px 16px;background:#fafbfc;cursor:pointer;user-select:none}
-#m4-inner .fase-hdr:hover{background:#f4f5f8}
-#m4-inner .fase-num{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;flex-shrink:0}
-#m4-inner .fn-ok{background:#1e7e34}#m4-inner .fn-prog{background:#185FA5}#m4-inner .fn-pend{background:#888}
-#m4-inner .fase-titulo{font-size:12px;font-weight:700;color:#1a1a2e;flex:1}
-#m4-inner .fase-status{font-size:10px;font-weight:700;padding:2px 8px;border-radius:8px;white-space:nowrap}
-#m4-inner .fs-ok{background:#eaf3de;color:#1e7e34}#m4-inner .fs-prog{background:#e8f4ff;color:#185FA5}#m4-inner .fs-pend{background:#f0f2f5;color:#888}
-#m4-inner .fase-exp{font-size:12px;color:#bbb;margin-left:4px}
-#m4-inner .checklist{display:none;padding:8px 16px 12px 54px}
-#m4-inner .checklist.open{display:block}
-#m4-inner .check-item{display:flex;align-items:flex-start;gap:10px;padding:6px 0;border-bottom:1px solid #f8f8f8}
-#m4-inner .check-item:last-child{border-bottom:none}
-#m4-inner .check-box{width:18px;height:18px;border-radius:4px;border:2px solid #d0d5dd;flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-top:1px;background:#fff}
-#m4-inner .check-box.checked{background:#1e7e34;border-color:#1e7e34;color:#fff;font-size:11px}
-#m4-inner .check-box.late{background:#fff0f0;border-color:#a32d2d}
-#m4-inner .check-box.na{background:#f0f2f5;border-color:#d0d5dd}
-#m4-inner .check-content{flex:1}
-#m4-inner .check-title{font-size:12px;font-weight:600;color:#1a1a2e;line-height:1.3}
-#m4-inner .check-desc{font-size:10px;color:#888;margin-top:2px;line-height:1.4}
-#m4-inner .check-meta{display:flex;gap:8px;margin-top:4px;flex-wrap:wrap;align-items:center}
-#m4-inner .check-resp{font-size:10px;padding:1px 7px;border-radius:8px;background:#f0f2f5;color:#555}
-#m4-inner .check-prazo{font-size:10px;font-weight:700}
-#m4-inner .prazo-ok{color:#1e7e34}#m4-inner .prazo-w{color:#854f0b}#m4-inner .prazo-l{color:#a32d2d}
-#m4-inner .check-obs{font-size:10px;color:#854f0b;font-style:italic;margin-top:2px}
-#m4-inner .alerta{background:#fff0f0;border-left:3px solid #a32d2d;padding:6px 10px;margin:4px 0;border-radius:0 4px 4px 0;font-size:11px;color:#a32d2d;font-weight:600}
-#m4-inner .legend{display:flex;gap:16px;padding:10px 16px;background:#f8f9fb;border-top:1px solid #e4e7ec;font-size:10px;color:#666;flex-wrap:wrap}
-#m4-inner .leg-i{display:flex;align-items:center;gap:5px}
-#m4-inner .ftr{background:#f4f5f8;padding:10px 16px;text-align:center;font-size:11px;color:#aaa;border-top:1px solid #e4e7ec}
-#m4-inner .empty{text-align:center;padding:40px;color:#aaa}
-</style>
-<div class="m4w">
-<div class="hdr"><div><h1>🏛️ Torre de Controle do Fiscal — Entrada &amp; Saída de CNPJs</h1><p>MadeiraMadeira · Checklist por fase · Ref: Abril/2026</p></div><div style="text-align:right"><p style="color:#aaa;font-size:11px">Atualizado 01/04/2026</p><p style="color:#e24b4a;font-size:11px;font-weight:700">2 entradas em andamento · 1 saída em andamento</p></div></div>
-<div class="tabs"><div class="tab active" onclick="m4Tab('entrada',this)">🟢 Entrada de CNPJs <span style="background:#1e7e34;color:#fff;border-radius:10px;padding:1px 7px;font-size:10px;margin-left:4px">2</span></div><div class="tab" onclick="m4Tab('saida',this)">🔴 Saída de CNPJs <span style="background:#a32d2d;color:#fff;border-radius:10px;padding:1px 7px;font-size:10px;margin-left:4px">1</span></div><div class="tab" onclick="m4Tab('hist',this)">📋 Histórico</div></div>
-
-<div class="tab-content active" id="m4-tab-entrada">
-  <div class="sumbar"><div class="sb"><div class="sb-l">Em andamento</div><div class="sb-v c-info">2</div><div class="sb-d">CNPJs em ativação</div></div><div class="sb"><div class="sb-l">✅ Fase 1 OK</div><div class="sb-v c-ok">1</div></div><div class="sb"><div class="sb-l">⏳ Fase 2</div><div class="sb-v c-warn">1</div></div><div class="sb"><div class="sb-l">🔴 Bloqueados</div><div class="sb-v c-danger">0</div></div><div class="sb"><div class="sb-l">Prontos p/ operar</div><div class="sb-v c-ok">0</div></div></div>
-  <div class="filter-bar"><span>Filtrar:</span><button class="fbtn active" onclick="m4Filtrar(this)">Todos</button><button class="fbtn" onclick="m4Filtrar(this)">Em andamento</button><button class="add-btn">+ Novo CNPJ</button></div>
-  <div class="cnpj-list">
-    <div class="cnpj-card" id="m4-card-e1"><div class="cnpj-card-hdr" onclick="m4ToggleCard('e1')"><span class="tipo tipo-ent">🟢 ENTRADA</span><div class="cnpj-info"><div class="cnpj-nome">Filial Novo CD Extrema/MG</div><div class="cnpj-num">10.490.181/0096-00</div><div class="cnpj-meta">Abertura: 15/03/2026 · UF: MG · CD Logístico</div></div><div class="prog-wrap"><div class="prog-label">Progresso geral</div><div class="prog-bar-outer"><div class="prog-bar-inner pb-warn" style="width:55%"></div></div><div class="prog-pct c-warn">55% — Fase 2 em andamento</div></div><div class="exp-icon" id="m4-icon-e1">▶</div></div>
-      <div class="fases" id="m4-fases-e1" style="display:none">
-        <div class="fase"><div class="fase-hdr" onclick="m4ToggleFase('m4-f-e1-1')"><div class="fase-num fn-ok">1</div><div class="fase-titulo">Fase 1 — Pré-ativação (cadastros e alvarás)</div><span class="fase-status fs-ok">✅ Concluída</span><span class="fase-exp" id="icon-m4-f-e1-1">▶</span></div>
-          <div class="checklist" id="m4-f-e1-1">
-            <div class="check-item"><div class="check-box checked">✓</div><div class="check-content"><div class="check-title">CNPJ ativo na Receita Federal</div><div class="check-meta"><span class="check-resp">Resp: Geisi</span><span class="prazo-ok check-prazo">✓ 15/03/2026</span></div></div></div>
-            <div class="check-item"><div class="check-box checked">✓</div><div class="check-content"><div class="check-title">Inscrição Estadual (IE) — Minas Gerais</div><div class="check-meta"><span class="check-resp">Resp: Geisi</span><span class="prazo-ok check-prazo">✓ 22/03/2026</span></div></div></div>
-            <div class="check-item"><div class="check-box checked">✓</div><div class="check-content"><div class="check-title">Inscrição Municipal (ISS) — Extrema/MG</div><div class="check-meta"><span class="check-resp">Resp: Geisi</span><span class="prazo-ok check-prazo">✓ 23/03/2026</span></div></div></div>
-            <div class="check-item"><div class="check-box checked">✓</div><div class="check-content"><div class="check-title">Alvará de funcionamento — Prefeitura Extrema</div><div class="check-meta"><span class="check-resp">Resp: Vini</span><span class="prazo-ok check-prazo">✓ 20/03/2026</span></div></div></div>
-            <div class="check-item"><div class="check-box checked">✓</div><div class="check-content"><div class="check-title">AVCB — Corpo de Bombeiros</div><div class="check-meta"><span class="check-resp">Resp: Vini</span><span class="prazo-ok check-prazo">✓ 19/03/2026</span></div></div></div>
-          </div>
-        </div>
-        <div class="fase"><div class="fase-hdr" onclick="m4ToggleFase('m4-f-e1-2')"><div class="fase-num fn-prog">2</div><div class="fase-titulo">Fase 2 — Configuração fiscal</div><span class="fase-status fs-prog">🔵 Em andamento</span><span class="fase-exp" id="icon-m4-f-e1-2">▶</span></div>
-          <div class="checklist open" id="m4-f-e1-2">
-            <div class="check-item"><div class="check-box checked">✓</div><div class="check-content"><div class="check-title">Acesso ao e-CAC configurado (2 usuários)</div><div class="check-meta"><span class="check-resp">Resp: Geisi</span><span class="prazo-ok check-prazo">✓ 24/03/2026</span></div></div></div>
-            <div class="check-item"><div class="check-box checked">✓</div><div class="check-content"><div class="check-title">DEC ativado</div><div class="check-meta"><span class="check-resp">Resp: Isa</span><span class="prazo-ok check-prazo">✓ 25/03/2026</span></div></div></div>
-            <div class="check-item"><div class="check-box late" style="border-color:#a32d2d">!</div><div class="check-content"><div class="check-title">Certificado digital A1/A3 instalado</div><div class="check-obs">⚠️ Bloqueante: sem certificado não é possível transmitir obrigações acessórias</div><div class="check-meta"><span class="check-resp">Resp: Geisi</span><span class="prazo-l check-prazo">⚠️ Pendente</span></div></div></div>
-            <div class="check-item"><div class="check-box" style="border-color:#d0d5dd"></div><div class="check-content"><div class="check-title">ERP parametrizado e testado em homologação</div><div class="check-meta"><span class="check-resp">Resp: Toazza / TI</span><span class="prazo-w check-prazo">Em andamento</span></div></div></div>
-          </div>
-        </div>
-        <div class="fase"><div class="fase-hdr"><div class="fase-num fn-pend">3</div><div class="fase-titulo">Fase 3 — Validação e liberação para operar</div><span class="fase-status fs-pend">⏸ Aguardando fase 2</span></div></div>
-      </div>
-    </div>
-    <div class="cnpj-card" id="m4-card-e2"><div class="cnpj-card-hdr" onclick="m4ToggleCard('e2')"><span class="tipo tipo-ent">🟢 ENTRADA</span><div class="cnpj-info"><div class="cnpj-nome">Guide Shop Brasília/DF</div><div class="cnpj-num">10.490.181/0097-00</div><div class="cnpj-meta">Abertura: 28/03/2026 · UF: DF · Loja Física</div></div><div class="prog-wrap"><div class="prog-label">Progresso geral</div><div class="prog-bar-outer"><div class="prog-bar-inner pb-danger" style="width:15%"></div></div><div class="prog-pct c-danger">15% — Fase 1 iniciada</div></div><div class="exp-icon" id="m4-icon-e2">▶</div></div>
-      <div class="fases" id="m4-fases-e2" style="display:none">
-        <div class="fase"><div class="fase-hdr" onclick="m4ToggleFase('m4-f-e2-1')"><div class="fase-num fn-prog">1</div><div class="fase-titulo">Fase 1 — Pré-ativação</div><span class="fase-status fs-prog">🔵 Em andamento</span><span class="fase-exp" id="icon-m4-f-e2-1">▶</span></div>
-          <div class="checklist open" id="m4-f-e2-1">
-            <div class="check-item"><div class="check-box checked">✓</div><div class="check-content"><div class="check-title">CNPJ ativo na Receita Federal</div><div class="check-meta"><span class="check-resp">Resp: Geisi</span><span class="prazo-ok check-prazo">✓ 28/03/2026</span></div></div></div>
-            <div class="check-item"><div class="check-box late" style="border-color:#854f0b">~</div><div class="check-content"><div class="check-title">Inscrição Estadual (IE) — Distrito Federal</div><div class="check-meta"><span class="check-resp">Resp: Geisi</span><span class="prazo-w check-prazo">Protocolo: 30/03/2026 · Prazo est.: 10/04/2026</span></div></div></div>
-            <div class="check-item"><div class="check-box" style="border-color:#d0d5dd"></div><div class="check-content"><div class="check-title">Inscrição Municipal (ISS) — Brasília/DF</div><div class="check-meta"><span class="check-resp">Resp: Geisi</span><span class="prazo-w check-prazo">Aguardando IE</span></div></div></div>
-            <div class="check-item"><div class="check-box" style="border-color:#d0d5dd"></div><div class="check-content"><div class="check-title">Alvará de funcionamento + AVCB</div><div class="check-meta"><span class="check-resp">Resp: Vini</span><span class="prazo-w check-prazo">Não iniciado</span></div></div></div>
-          </div>
-        </div>
-        <div class="fase"><div class="fase-hdr"><div class="fase-num fn-pend">2</div><div class="fase-titulo">Fase 2 — Configuração fiscal</div><span class="fase-status fs-pend">⏸ Aguardando fase 1</span></div></div>
-        <div class="fase"><div class="fase-hdr"><div class="fase-num fn-pend">3</div><div class="fase-titulo">Fase 3 — Validação e liberação</div><span class="fase-status fs-pend">⏸ Aguardando fase 2</span></div></div>
-      </div>
-    </div>
-  </div>
-  <div class="legend"><div class="leg-i"><div class="check-box checked" style="width:14px;height:14px;font-size:9px">✓</div>Concluído</div><div class="leg-i"><div class="check-box late" style="width:14px;height:14px;border-color:#854f0b;font-size:9px">~</div>Em andamento</div><div class="leg-i"><div class="check-box late" style="width:14px;height:14px;font-size:9px">!</div>Crítico</div><div class="leg-i"><div class="check-box" style="width:14px;height:14px"></div>Não iniciado</div></div>
-</div>
-
-<div class="tab-content" id="m4-tab-saida">
-  <div class="sumbar"><div class="sb"><div class="sb-l">Em encerramento</div><div class="sb-v c-danger">1</div></div><div class="sb"><div class="sb-l">🔴 Com débito ativo</div><div class="sb-v c-danger">1</div></div><div class="sb"><div class="sb-l">Baixa formalizada</div><div class="sb-v">0</div></div><div class="sb"><div class="sb-l">Encerrados no mês</div><div class="sb-v c-ok">0</div></div><div class="sb"><div class="sb-l">Pós-baixa</div><div class="sb-v">0</div></div></div>
-  <div class="filter-bar"><span>Filtrar:</span><button class="fbtn active" onclick="m4Filtrar(this)">Todos</button><button class="fbtn" onclick="m4Filtrar(this)">🔴 Com débito</button><button class="add-btn">+ Encerrar CNPJ</button></div>
-  <div class="cnpj-list">
-    <div class="cnpj-card" id="m4-card-s1"><div class="cnpj-card-hdr" onclick="m4ToggleCard('s1')"><span class="tipo tipo-sai">🔴 SAÍDA</span><div class="cnpj-info"><div class="cnpj-nome">Filial Viana/ES (encerrada)</div><div class="cnpj-num">10.490.181/0004-00</div><div class="cnpj-meta">Encerramento ops: 28/02/2026 · UF: ES · CND: Positiva c/ Efeito Negativo ⚠️</div></div><div class="prog-wrap"><div class="prog-label">Progresso do encerramento</div><div class="prog-bar-outer"><div class="prog-bar-inner pb-warn" style="width:35%"></div></div><div class="prog-pct c-warn">35% — Pré-encerramento</div></div><div class="exp-icon" id="m4-icon-s1">▶</div></div>
-      <div class="fases" id="m4-fases-s1" style="display:none">
-        <div class="fase"><div class="fase-hdr" onclick="m4ToggleFase('m4-f-s1-1')"><div class="fase-num fn-prog">1</div><div class="fase-titulo">Fase 1 — Pré-encerramento</div><span class="fase-status fs-prog">🔵 Em andamento</span><span class="fase-exp" id="icon-m4-f-s1-1">▶</span></div>
-          <div class="checklist open" id="m4-f-s1-1">
-            <div class="alerta">⚠️ Regra de ouro: não protocolar baixa com CND Positiva. Regularizar primeiro.</div>
-            <div class="check-item"><div class="check-box late" style="border-color:#a32d2d">!</div><div class="check-content"><div class="check-title">CND Federal — deve estar Negativa</div><div class="check-obs">⚠️ Felix buscando orçamentos de seguro fiança (ref: R$350k Itaú). Prazo: sexta que vem</div><div class="check-meta"><span class="check-resp">Resp: Geisi</span><span class="prazo-l check-prazo">🔴 Positiva c/ Efeito Negativo</span></div></div></div>
-            <div class="check-item"><div class="check-box checked">✓</div><div class="check-content"><div class="check-title">Levantamento de parcelamentos ativos</div><div class="check-meta"><span class="check-resp">Resp: Geisi</span><span class="prazo-ok check-prazo">✓ Sem parcelamentos ativos</span></div></div></div>
-            <div class="check-item"><div class="check-box checked">✓</div><div class="check-content"><div class="check-title">Última NF-e de saída registrada — NF-e nº 000.124</div><div class="check-meta"><span class="check-resp">Resp: Geisi</span><span class="prazo-ok check-prazo">✓ 28/02/2026</span></div></div></div>
-          </div>
-        </div>
-        <div class="fase"><div class="fase-hdr" onclick="m4ToggleFase('m4-f-s1-2')"><div class="fase-num fn-pend">2</div><div class="fase-titulo">Fase 2 — Baixa formal (IE, IM e CNPJ)</div><span class="fase-status fs-pend">⏸ Aguardando fase 1</span><span class="fase-exp" id="icon-m4-f-s1-2">▶</span></div>
-          <div class="checklist" id="m4-f-s1-2">
-            <div class="check-item"><div class="check-box na">—</div><div class="check-content"><div class="check-title">Baixa da Inscrição Estadual — SEFAZ-ES</div><div class="check-meta"><span class="check-resp">Resp: Geisi</span><span class="prazo-w check-prazo">Aguardando CND regularizada</span></div></div></div>
-            <div class="check-item"><div class="check-box na">—</div><div class="check-content"><div class="check-title">Baixa do CNPJ — Receita Federal (REDESIM)</div><div class="check-meta"><span class="check-resp">Resp: Geisi</span><span class="prazo-w check-prazo">Aguardando IE e IM baixadas</span></div></div></div>
-          </div>
-        </div>
-        <div class="fase"><div class="fase-hdr"><div class="fase-num fn-pend">3</div><div class="fase-titulo">Fase 3 — Pós-baixa</div><span class="fase-status fs-pend">⏸ Aguardando baixa</span></div></div>
-      </div>
-    </div>
-  </div>
-  <div class="legend"><div style="font-size:10px;color:#a32d2d;font-weight:700">⚠️ Regra de ouro: NUNCA protocolar baixa com CND Positiva</div></div>
-</div>
-
-<div class="tab-content" id="m4-tab-hist"><div class="empty"><div>📋</div><div style="font-size:14px;font-weight:700;color:#555">Histórico — a construir</div></div></div>
-<div class="ftr">Torre de Controle do Fiscal · Entrada &amp; Saída de CNPJs · MadeiraMadeira · Ref: Abr/2026</div>
-</div>
-    </div>
-  </div>
-</div>
-
-<!-- ===== SCRIPTS ===== -->
 <script>
-// ── INVENTORY FUNCTIONS ──
 function toggleArea(id){document.getElementById(id).classList.toggle('open')}
 function filterArea(area,btn){
   document.querySelectorAll('.f-btn').forEach(b=>b.classList.remove('active'));
@@ -556,139 +248,104 @@ function filterArea(area,btn){
     el.style.display=(area==='all'||el.dataset.area===area)?'block':'none';
   });
 }
+document.getElementById('modal-cal').addEventListener('click',function(e){if(e.target===this)closeCalModal()});
+document.getElementById('module-overlay').addEventListener('click',function(e){if(e.target===this)closeModule()});
 
-// ── MODALS 1-4 ──
-function openModal(){document.getElementById('modal').classList.add('open')}
-function closeModal(){document.getElementById('modal').classList.remove('open')}
-function openModal2(){document.getElementById('modal2').classList.add('open')}
-function closeModal2(){document.getElementById('modal2').classList.remove('open')}
-function openModal3(){document.getElementById('modal3').classList.add('open');m3Render()}
-function closeModal3(){document.getElementById('modal3').classList.remove('open')}
-function openModal4(){document.getElementById('modal4').classList.add('open')}
-function closeModal4(){document.getElementById('modal4').classList.remove('open')}
+async function loadModule(path){
+  const overlay=document.getElementById('module-overlay');
+  const container=document.getElementById('module-container');
+  container.innerHTML='<div class="module-loading">⏳ Carregando módulo…</div>';
+  overlay.classList.add('open');
+  try{
+    const res=await fetch(path);
+    if(!res.ok)throw new Error('HTTP '+res.status);
+    const html=await res.text();
+    container.innerHTML=html;
+    container.querySelectorAll('script').forEach(oldScript=>{
+      const s=document.createElement('script');
+      s.textContent=oldScript.textContent;
+      oldScript.parentNode.replaceChild(s,oldScript);
+    });
+  }catch(err){
+    container.innerHTML='<div class="modal-close"><button onclick="closeModule()">✕ fechar</button></div><div style="padding:40px;text-align:center;color:#f87171"><div style="font-size:28px;margin-bottom:12px">⚠️</div><div style="font-weight:600">Erro ao carregar módulo</div><div style="font-size:11px;color:#475569;margin-top:6px">'+path+'</div><div style="font-size:11px;color:#475569;margin-top:4px">'+err.message+'</div></div>';
+  }
+}
+function closeModule(){
+  document.getElementById('module-overlay').classList.remove('open');
+  setTimeout(()=>{document.getElementById('module-container').innerHTML='<div class="module-loading">⏳ Carregando módulo…</div>';},200);
+}
 
-['modal','modal2','modal3','modal4','modal-cal'].forEach(id=>{
-  const el=document.getElementById(id);
-  if(el) el.addEventListener('click',function(e){if(e.target===this)this.classList.remove('open')});
-});
-
-// ── MODAL 1 TABS/TOGGLE ──
-function tfTab(id,el){document.querySelectorAll('#modal .tf-tab').forEach(t=>t.classList.remove('active'));['tf-cc','tf-sla','tf-hist'].forEach(t=>{const v=document.getElementById(t);if(v)v.classList.remove('active')});el.classList.add('active');document.getElementById('tf-'+id).classList.add('active')}
-function tfFilter(f,btn){document.querySelectorAll('#modal .tf-fb').forEach(b=>b.classList.remove('active'));btn.classList.add('active')}
-function tfToggle(id,iconId){const d=document.getElementById(id);const icon=document.getElementById(iconId);const open=d.classList.toggle('open');icon.textContent=open?'▼ recolher':'▶ expandir'}
-
-// ── MODAL 2 TABS/TOGGLE/FILTER ──
-function tfTab2(id,el){document.querySelectorAll('#modal2 .tf-tab').forEach(t=>t.classList.remove('active'));['tf2-cc','tf2-sla','tf2-hist'].forEach(t=>{const v=document.getElementById(t);if(v)v.classList.remove('active')});el.classList.add('active');document.getElementById('tf2-'+id).classList.add('active')}
-function tf2Filter(f,btn){document.querySelectorAll('#modal2 .tf-fb').forEach(b=>b.classList.remove('active'));btn.classList.add('active');document.querySelectorAll('#modal2 [data-esf]').forEach(el=>{el.style.display=(f==='all'||el.dataset.esf===f)?'':'none'})}
-function tfToggle2(id,iconId){const d=document.getElementById(id);const icon=document.getElementById(iconId);const open=d.classList.toggle('open');icon.textContent=open?'▼':'▶'}
-
-// ── MODAL 4 ──
-function m4Tab(t,el){document.querySelectorAll('#m4-inner .tab').forEach(x=>x.classList.remove('active'));document.querySelectorAll('#m4-inner .tab-content').forEach(x=>x.classList.remove('active'));el.classList.add('active');document.getElementById('m4-tab-'+t).classList.add('active')}
-function m4ToggleCard(id){const f=document.getElementById('m4-fases-'+id);const icon=document.getElementById('m4-icon-'+id);const hdr=document.getElementById('m4-card-'+id).querySelector('.cnpj-card-hdr');const open=f.style.display==='none';f.style.display=open?'block':'none';icon.textContent=open?'▼':'▶';hdr.classList.toggle('expanded',open)}
-function m4ToggleFase(id){const cl=document.getElementById(id);const icon=document.getElementById('icon-'+id);if(!cl||!icon)return;const open=cl.classList.toggle('open');icon.textContent=open?'▼':'▶'}
-function m4Filtrar(btn){btn.closest('.filter-bar').querySelectorAll('.fbtn').forEach(b=>b.classList.remove('active'));btn.classList.add('active')}
-
-// ── MODAL 3 (M3) ──
-const M3_DATA=[
-  {periodo:'mensal',label:'Mensal',impostos:[
-    {id:'m3irpj',nome:'DARF IRPJ/CSLL',origem:'DARF IRPJ/CSLL — Fiscal',periodicidade:'Mensal',vence:'20/Abr',resp:'CSC (Cris)',ini:0,ent:4,sai:4,status:'ok',cnpjs:[{i:1,label:'Matriz PR',cnpj:'0001-35',etapa:3,liq:'normal',prazo:'20/Abr',status:'done'},{i:2,label:'Filial SP',cnpj:'0002-16',etapa:3,liq:'normal',prazo:'20/Abr',status:'done'},{i:3,label:'Filial ES',cnpj:'0003-97',etapa:3,liq:'normal',prazo:'20/Abr',status:'done'},{i:4,label:'Filial MG',cnpj:'0004-78',etapa:3,liq:'normal',prazo:'20/Abr',status:'done'}]},
-    {id:'m3fgts',nome:'FGTS (GPS)',origem:'FGTS (GPS) — Fiscal',periodicidade:'Mensal',vence:'07/Abr',resp:'CSC (Cris)',ini:0,ent:8,sai:5,status:'going',cnpjs:[{i:1,label:'Filial RJ',cnpj:'0007-11',etapa:3,liq:'normal',prazo:'07/Abr',status:'done'},{i:2,label:'Filial SC',cnpj:'0008-02',etapa:3,liq:'normal',prazo:'07/Abr',status:'done'},{i:3,label:'Matriz PR',cnpj:'0001-35',etapa:2,liq:'normal',prazo:'07/Abr',status:'active'},{i:4,label:'Filial SP',cnpj:'0002-16',etapa:2,liq:'normal',prazo:'07/Abr',status:'active'},{i:5,label:'Filial ES',cnpj:'0003-97',etapa:1,liq:'aguard',prazo:'07/Abr',status:'waiting'}]},
-    {id:'m3iss',nome:'ISS Municipal (NFS-e)',origem:'ISS Municipal — Fiscal',periodicidade:'Mensal',vence:'10/Abr',resp:'CSC (Cris)',ini:0,ent:10,sai:6,status:'going',cnpjs:[{i:1,label:'Matriz PR · Curitiba',cnpj:'0001-35',etapa:3,liq:'normal',prazo:'10/Abr',status:'done'},{i:2,label:'Filial SP · São Paulo',cnpj:'0002-16',etapa:3,liq:'normal',prazo:'10/Abr',status:'done'},{i:7,label:'Filial BH',cnpj:'0004-78',etapa:2,liq:'normal',prazo:'10/Abr',status:'active'},{i:8,label:'Filial SSA · Salvador',cnpj:'0005-59',etapa:2,liq:'judicial',prazo:'—',status:'judicial',nota:'Discussão: ISS sobre serviços digitais. Dep. judicial R$42k'},{i:9,label:'Filial GYN · Goiânia',cnpj:'0009-85',etapa:1,liq:'aguard',prazo:'10/Abr',status:'waiting'}]},
-    {id:'m3icms',nome:'ICMS (Apuração Mensal)',origem:'EFD ICMS/IPI — Fiscal',periodicidade:'Mensal',vence:'20/Abr',resp:'CSC (Cris)',ini:2,ent:7,sai:4,status:'going',cnpjs:[{i:1,label:'Matriz PR',cnpj:'0001-35',etapa:3,liq:'normal',prazo:'20/Abr',status:'done'},{i:2,label:'Filial SP',cnpj:'0002-16',etapa:3,liq:'normal',prazo:'20/Abr',status:'done'},{i:3,label:'Filial RJ',cnpj:'0007-11',etapa:2,liq:'normal',prazo:'20/Abr',status:'active'},{i:4,label:'Filial MG',cnpj:'0004-78',etapa:2,liq:'judicial',prazo:'—',status:'judicial',nota:'ICMS sobre transferência de estoque — Dep. judicial R$180k'},{i:9,label:'Filial GO',cnpj:'0009-85',etapa:2,liq:'normal',prazo:'20/Abr',status:'late'}]},
-    {id:'m3pis',nome:'PIS/COFINS (DARF)',origem:'EFD-Contribuições — Fiscal',periodicidade:'Mensal',vence:'25/Abr',resp:'CSC (Cris)',ini:0,ent:4,sai:4,status:'ok',cnpjs:[{i:1,label:'Matriz PR',cnpj:'0001-35',etapa:3,liq:'normal',prazo:'25/Abr',status:'done'},{i:4,label:'Filial MG',cnpj:'0004-78',etapa:3,liq:'judicial',prazo:'—',status:'judicial',nota:'Tese exclusão ICMS da base PIS/COFINS — Dep. judicial R$320k'}]}
-  ]},
-  {periodo:'anual',label:'Anual / Eventual',impostos:[
-    {id:'m3irpjan',nome:'IRPJ/CSLL — Ajuste anual',origem:'Apuração anual — Fiscal',periodicidade:'Anual',vence:'31/Jul',resp:'CSC (Cris)',ini:0,ent:1,sai:0,status:'going',cnpjs:[{i:1,label:'Grupo consolidado',cnpj:'0001-35',etapa:1,liq:'aguard',prazo:'31/Jul',status:'waiting',nota:'Guia prevista Jun/26'}]}
-  ]},
-  {periodo:'avulso',label:'Avulso / Demanda (ex: GNRE)',impostos:[
-    {id:'m3gnre',nome:'GNRE / ICMS Difal por operação',origem:'GNRE — Fiscal (por demanda)',periodicidade:'Por operação',vence:'Por venda',resp:'CSC (Cris)',ini:3,ent:47,sai:44,status:'going',cnpjs:'batch',batch:{qtd:6,msg:'6 GNREs abertas — aguardando guia do fiscal ou pagamento.',cor:'#fbbf24'}}
-  ]}
-];
-const M3_ETAPAS=['Aguard. guia do fiscal','Pagamento / Dep. judicial','Comprovante arquivado'];
-let m3AllExp=false,m3CurFilter='all',m3LiqFilter=null;
-function m3LiqTag(l){if(l==='normal')return'<span class="m3-liq-normal">💳 Pgto normal</span>';if(l==='judicial')return'<span class="m3-liq-judicial">⚖ Dep. judicial</span>';if(l==='parcel')return'<span class="m3-liq-parcel">📋 Parcelamento</span>';return'<span class="m3-liq-aguard">⏳ Aguard. guia</span>'}
-function m3StepDot(i,etapa,liq,status){if(i<etapa)return'm3-sd-done';if(i===etapa){if(status==='late')return'm3-sd-late';if(liq==='judicial')return'm3-sd-jud';if(status==='waiting')return'm3-sd-wait';return'm3-sd-active';}return'm3-sd-wait'}
-function m3RenderSteps(etapa,liq,status){let h='<div class="m3-steps">';for(let i=1;i<=3;i++){h+=`<div class="m3-step-block"><div class="m3-step-dot ${m3StepDot(i,etapa,liq,status)}"></div><div class="m3-step-num">${i}</div></div>`;if(i<3)h+='<div class="m3-step-conn"></div>';}return h+'</div>'}
-function m3StatusBadge(o){const sf=o.ini+o.ent-o.sai;if(o.status==='ok'&&sf===0)return'<span class="m3-badge m3-b-ok">✅ Regular</span>';if(o.status==='going')return`<span class="m3-badge m3-b-going">▶ ${sf} abertos</span>`;if(o.status==='late')return'<span class="m3-badge m3-b-late">! Atrasado</span>';return'<span class="m3-badge m3-b-pend">⏳ Aguardando</span>'}
-function m3CnpjBadge(s){if(s==='done')return'<span class="m3-badge m3-b-ok" style="font-size:9px">✓ Arquivado</span>';if(s==='judicial')return'<span class="m3-badge m3-b-jud" style="font-size:9px">⚖ Dep. judicial</span>';if(s==='active')return'<span class="m3-badge m3-b-going" style="font-size:9px">▶ Em pgto</span>';if(s==='late')return'<span class="m3-badge m3-b-late" style="font-size:9px">! Atrasado</span>';return'<span class="m3-badge m3-b-pend" style="font-size:9px">⏳ Aguard. guia</span>'}
-function m3PrazoClass(s){if(s==='done'||s==='judicial')return'm3-prazo-ok';if(s==='active')return'm3-prazo-warn';if(s==='late')return'm3-prazo-late';return'm3-prazo-pend'}
-function m3SfClass(o){const sf=o.ini+o.ent-o.sai;if(sf===0)return'm3-n-ok';if(o.status==='late')return'm3-n-late';return'm3-n-warn'}
-function m3SfVal(o){const sf=o.ini+o.ent-o.sai;return sf===0?'0 ✓':sf}
-function m3PerioTag(p){if(p==='Mensal')return'<span style="font-size:10px;color:#6b9fd4;background:#1e3a5f;border-radius:3px;padding:1px 6px">Mensal</span>';if(p==='Anual')return'<span style="font-size:10px;color:#d4a46b;background:#2e2010;border-radius:3px;padding:1px 6px">Anual</span>';return'<span style="font-size:10px;color:#a06bd4;background:#251a3e;border-radius:3px;padding:1px 6px">Avulso</span>'}
-function m3Render(){const body=document.getElementById('m3-table-body');if(!body)return;let html='';for(const grp of M3_DATA){if(m3CurFilter!=='all'&&m3CurFilter!==grp.periodo)continue;html+=`<div class="m3-period-group open"><div class="m3-period-label" onclick="this.parentElement.classList.toggle('open')"><span style="color:#475569">${grp.label.toUpperCase()}</span><span style="font-weight:400;color:#334155;font-size:9px"> · ${grp.impostos.length} impostos</span><span class="m3-period-toggle">›</span></div><div class="m3-period-body">`;for(const imp of grp.impostos){if(m3LiqFilter==='jud'&&imp.cnpjs!=='batch'&&!imp.cnpjs.some(c=>c.liq==='judicial'))continue;if(m3LiqFilter==='late'&&imp.status!=='late'&&!(imp.cnpjs!=='batch'&&imp.cnpjs.some(c=>c.status==='late')))continue;html+=`<div class="m3-imp-row" id="${imp.id}" onclick="m3ToggleImp('${imp.id}')"><div class="m3-imp-cell"><div class="m3-imp-toggle">+</div></div><div class="m3-imp-cell" style="flex-direction:column;align-items:flex-start;gap:3px"><div class="m3-imp-name">${imp.nome}</div><div class="m3-fiscal-tag">⇄ ${imp.origem}</div><div class="m3-imp-meta">Vence: ${imp.vence} · ${imp.resp}</div></div><div class="m3-imp-cell" style="justify-content:center">${m3PerioTag(imp.periodicidade)}</div><div class="m3-imp-cell m3-num m3-n-ini">${imp.ini}</div><div class="m3-imp-cell m3-num m3-n-ent">+${imp.ent}</div><div class="m3-imp-cell m3-num m3-n-sai">−${imp.sai}</div><div class="m3-imp-cell m3-num ${m3SfClass(imp)}">${m3SfVal(imp)}</div><div class="m3-imp-cell" style="justify-content:center">${m3StatusBadge(imp)}</div></div><div class="m3-cnpj-body" id="cnpj-${imp.id}" style="display:none">`;if(imp.cnpjs==='batch'){html+=`<div class="m3-cnpj-batch"><strong style="color:${imp.batch.cor}">${imp.batch.qtd} registros</strong><span>${imp.batch.msg}</span></div>`;}else{html+=`<div class="m3-cnpj-head"><div>#</div><div>Filial / CNPJ</div><div>Tipo liquidação</div><div>Etapa / Progresso</div><div>Prazo</div><div>Status</div></div>`;for(const c of imp.cnpjs){if(m3LiqFilter==='jud'&&c.liq!=='judicial')continue;if(m3LiqFilter==='late'&&c.status!=='late')continue;html+=`<div class="m3-cnpj-row"><div class="m3-cnpj-idx">${String(c.i).padStart(2,'0')}</div><div><div class="m3-cnpj-label">${c.label}</div><div class="m3-cnpj-cnpj">10.490.181/${c.cnpj}</div>${c.nota?`<div style="font-size:10px;color:#475569;margin-top:2px;font-style:italic">${c.nota}</div>`:''}</div><div>${m3LiqTag(c.liq)}</div><div><div style="font-size:10px;color:#64748b;margin-bottom:4px">${M3_ETAPAS[c.etapa-1]||''}</div>${m3RenderSteps(c.etapa,c.liq,c.status)}</div><div class="${m3PrazoClass(c.status)}">${c.prazo}</div><div>${m3CnpjBadge(c.status)}</div></div>`;}}html+=`</div>`;}html+=`</div></div>`;}body.innerHTML=html}
-function m3ToggleImp(id){const row=document.getElementById(id);const body=document.getElementById('cnpj-'+id);const btn=row.querySelector('.m3-imp-toggle');const open=row.classList.toggle('open');body.style.display=open?'block':'none';btn.textContent=open?'−':'+'}
-function m3ToggleAll(){m3AllExp=!m3AllExp;document.querySelectorAll('#m3-table-body .m3-imp-row').forEach(row=>{const id=row.id;const body=document.getElementById('cnpj-'+id);const btn=row.querySelector('.m3-imp-toggle');if(body){if(m3AllExp){row.classList.add('open');body.style.display='block';btn.textContent='−';}else{row.classList.remove('open');body.style.display='none';btn.textContent='+';}}}); document.querySelector('.m3-expand-all').textContent=m3AllExp?'⊟ recolher tudo':'⊞ expandir tudo'}
-function m3SetFilter(f,btn){document.querySelectorAll('#modal3 .m3-fb').forEach(b=>b.classList.remove('active'));btn.classList.add('active');m3CurFilter=f;m3LiqFilter=null;m3AllExp=false;m3Render()}
-function m3SetLiqFilter(f,btn){m3LiqFilter=btn.classList.contains('active')?null:f;document.querySelectorAll('#modal3 .m3-fb').forEach(b=>b.classList.remove('active'));if(m3LiqFilter)btn.classList.add('active');else document.querySelector('#modal3 .m3-fb').classList.add('active');m3CurFilter='all';m3AllExp=false;m3Render()}
-
-// ── CALENDÁRIO DE AUDITORIAS ──
-const PROCS = [
+const PROCS=[
   {area:'CSC-financeiro',color:'#3b82f6',items:[
-    {pid:'csc-1',name:'Contas a pagar — Diretos Produtos'},{pid:'csc-2',name:'Contas a pagar — Diretos Fretes'},{pid:'csc-3',name:'C/P Diretos Parceiros Sellers'},{pid:'csc-4',name:'C/P Diretos Parceiros Montadores'},{pid:'csc-5',name:'C/P Diretos Outros Parceiros'},{pid:'csc-6',name:'C/P Indiretos Geral'},{pid:'csc-7',name:'C/P Indiretos Impostos'},{pid:'csc-8',name:'C/P Folha'},{pid:'csc-9',name:'C/P Conciliação'},{pid:'csc-10',name:'C/R Cartão'},{pid:'csc-11',name:'C/R PIX / Boleto'},{pid:'csc-12',name:'C/R Marketplaceout'},{pid:'csc-13',name:'C/R Campanhas Marketplaceout'},{pid:'csc-14',name:'C/R VPC Fornecedores'},{pid:'csc-15',name:'C/R Conciliação'},{pid:'csc-16',name:'Fluxo de caixa'},{pid:'csc-17',name:'Super backoffice'}
+    {pid:'csc-1',name:'Contas a pagar — Diretos Produtos'},{pid:'csc-2',name:'Contas a pagar — Diretos Fretes'},
+    {pid:'csc-3',name:'C/P Diretos Parceiros Sellers'},{pid:'csc-4',name:'C/P Diretos Parceiros Montadores'},
+    {pid:'csc-5',name:'C/P Diretos Outros Parceiros'},{pid:'csc-6',name:'C/P Indiretos Geral'},
+    {pid:'csc-7',name:'C/P Indiretos Impostos'},{pid:'csc-8',name:'C/P Folha'},
+    {pid:'csc-9',name:'C/P Conciliação'},{pid:'csc-10',name:'C/R Cartão'},
+    {pid:'csc-11',name:'C/R PIX / Boleto'},{pid:'csc-12',name:'C/R Marketplaceout'},
+    {pid:'csc-13',name:'C/R Campanhas Marketplaceout'},{pid:'csc-14',name:'C/R VPC Fornecedores'},
+    {pid:'csc-15',name:'C/R Conciliação'},{pid:'csc-16',name:'Fluxo de caixa'},
+    {pid:'csc-17',name:'Super backoffice'}
   ]},
   {area:'Fiscal',color:'#ef4444',items:[
-    {pid:'fis-1',name:'Apuração, entrega e pgto de obrigações'},{pid:'fis-2',name:'Escriturações de entrada de notas fiscais'},{pid:'fis-3',name:'Cadastramento / Descadastramento CNPJ'},{pid:'fis-4',name:'Cadastramento / Descadastramento SKU'},{pid:'fis-5',name:'Cadastramento / Descadastramento Terceiros'},{pid:'fis-6',name:'Regularidade fiscal — CND, Alvarás, Bombeiro'},{pid:'fis-7',name:'Regularidade — novas legislações'},{pid:'fis-8',name:'Planejamento tributário'}
+    {pid:'fis-1',name:'Apuração, entrega e pgto de obrigações'},{pid:'fis-2',name:'Escriturações de entrada de NF'},
+    {pid:'fis-3',name:'Cadastramento / Descadastramento CNPJ'},{pid:'fis-4',name:'Cadastramento / Descadastramento SKU'},
+    {pid:'fis-5',name:'Cadastramento / Descadastramento Terceiros'},{pid:'fis-6',name:'Regularidade fiscal — CND, Alvarás'},
+    {pid:'fis-7',name:'Regularidade — novas legislações'},{pid:'fis-8',name:'Planejamento tributário'}
   ]},
   {area:'Contábil',color:'#22c55e',items:[
-    {pid:'con-1',name:'Lançamentos manuais'},{pid:'con-2',name:'Gestão de provisões'},{pid:'con-3',name:'Conciliação de contas'},{pid:'con-4',name:'Depreciação'},{pid:'con-5',name:'Amortização'},{pid:'con-6',name:'Ativo imobilizado'},{pid:'con-7',name:'Fechamento mensal'}
+    {pid:'con-1',name:'Lançamentos manuais'},{pid:'con-2',name:'Gestão de provisões'},
+    {pid:'con-3',name:'Conciliação de contas'},{pid:'con-4',name:'Depreciação'},
+    {pid:'con-5',name:'Amortização'},{pid:'con-6',name:'Ativo imobilizado'},{pid:'con-7',name:'Fechamento mensal'}
   ]},
   {area:'Jurídico',color:'#a855f7',items:[
-    {pid:'jur-1',name:'Regularidade civil e criminal'},{pid:'jur-2',name:'Gestão contencioso geral'},{pid:'jur-3',name:'Gestão contencioso consumidor'},{pid:'jur-4',name:'Teses e discussões tributárias'},{pid:'jur-5',name:'Gestão de contratos'},{pid:'jur-6',name:'Consultivo, compliance e regulatório'},{pid:'jur-7',name:'Controladoria jurídica — legal ops'},{pid:'jur-8',name:'Propriedade intelectual'},{pid:'jur-9',name:'Societário e Governança'}
+    {pid:'jur-1',name:'Regularidade civil e criminal'},{pid:'jur-2',name:'Gestão contencioso geral'},
+    {pid:'jur-3',name:'Gestão contencioso consumidor'},{pid:'jur-4',name:'Teses e discussões tributárias'},
+    {pid:'jur-5',name:'Gestão de contratos'},{pid:'jur-6',name:'Consultivo, compliance e regulatório'},
+    {pid:'jur-7',name:'Controladoria jurídica — legal ops'},{pid:'jur-8',name:'Propriedade intelectual'},
+    {pid:'jur-9',name:'Societário e Governança'}
   ]},
   {area:'Depto. Pessoal',color:'#f59e0b',items:[
-    {pid:'dp-1',name:'Processamento e pgto de folha e ponto'},{pid:'dp-2',name:'Encargos Sociais e Obrigações Acessórias'},{pid:'dp-3',name:'Admissão, manutenção e desligamento'},{pid:'dp-4',name:'Gestão de benefícios'},{pid:'dp-5',name:'Relações sindicais e SST'},{pid:'dp-6',name:'Atendimento ao colaborador'},{pid:'dp-7',name:'Atendimento fiscalização e perícias'}
+    {pid:'dp-1',name:'Processamento e pgto de folha e ponto'},{pid:'dp-2',name:'Encargos Sociais e Obrigações Acessórias'},
+    {pid:'dp-3',name:'Admissão, manutenção e desligamento'},{pid:'dp-4',name:'Gestão de benefícios'},
+    {pid:'dp-5',name:'Relações sindicais e SST'},{pid:'dp-6',name:'Atendimento ao colaborador'},
+    {pid:'dp-7',name:'Atendimento fiscalização e perícias'}
   ]}
 ];
-
-let auditDates = {};
-
-function openCalModal(){
-  buildCalBody();
-  document.getElementById('modal-cal').classList.add('open');
-}
+let auditDates={};
+function openCalModal(){buildCalBody();document.getElementById('modal-cal').classList.add('open')}
 function closeCalModal(){document.getElementById('modal-cal').classList.remove('open')}
-
 function buildCalBody(){
   const body=document.getElementById('cal-body');
   let html='';
   for(const grp of PROCS){
-    html+=`<div class="cal-area"><div class="cal-area-title" style="border-color:${grp.color}"><span style="color:${grp.color}">●</span> ${grp.area}</div>`;
+    html+='<div class="cal-area"><div class="cal-area-title" style="border-color:'+grp.color+'"><span style="color:'+grp.color+'">●</span> '+grp.area+'</div>';
     for(const p of grp.items){
       const val=auditDates[p.pid]||'';
-      html+=`<div class="cal-proc-row"><div class="cal-proc-name">${p.name}</div><input type="month" class="cal-date-input" data-pid="${p.pid}" value="${val}" placeholder="Mês/Ano"></div>`;
+      html+='<div class="cal-proc-row"><div class="cal-proc-name">'+p.name+'</div><input type="month" class="cal-date-input" data-pid="'+p.pid+'" value="'+val+'"></div>';
     }
-    html+=`</div>`;
+    html+='</div>';
   }
   body.innerHTML=html;
 }
-
 function saveAuditDates(){
-  document.querySelectorAll('.cal-date-input').forEach(inp=>{
-    auditDates[inp.dataset.pid]=inp.value;
-  });
-  applyAuditDates();
-  closeCalModal();
+  document.querySelectorAll('.cal-date-input').forEach(inp=>{auditDates[inp.dataset.pid]=inp.value});
+  applyAuditDates();closeCalModal();
 }
-
 function applyAuditDates(){
+  const months=['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
   let count=0;
   for(const [pid,date] of Object.entries(auditDates)){
     const el=document.getElementById('ad-'+pid);
-    if(el){
-      if(date){
-        const [y,m]=date.split('-');
-        const months=['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
-        el.textContent=`${months[parseInt(m)-1]}/${y}`;
-        el.classList.add('set');
-        count++;
-      } else {
-        el.textContent='—';
-        el.classList.remove('set');
-      }
-    }
+    if(!el)continue;
+    if(date){
+      const [y,m]=date.split('-');
+      el.textContent=months[parseInt(m)-1]+'/'+y;
+      el.classList.add('set');count++;
+    }else{el.textContent='—';el.classList.remove('set')}
   }
   const cnt=document.getElementById('aud-count');
-  if(cnt) cnt.textContent=count;
+  if(cnt)cnt.textContent=count;
 }
 </script>
 </body>
