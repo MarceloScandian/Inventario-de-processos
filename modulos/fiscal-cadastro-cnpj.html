@@ -1,0 +1,212 @@
+<!--
+  MÓDULO: Torre de Controle — Entrada e Saída de CNPJs
+  Área: Fiscal · Responsável: Geisi Santos
+  Arquivo: modulos/fiscal-cadastro-cnpj.html · Versão: v1
+-->
+<div class="modal-close"><button onclick="closeModule()">✕ fechar template</button></div>
+<style>
+.m4w{font-family:Arial,sans-serif;font-size:13px;color:#333;background:#f0f2f5}
+.m4-hdr{background:#1a1a2e;padding:18px 28px;display:flex;justify-content:space-between;align-items:center}
+.m4-hdr h1{color:#fff;font-size:16px;font-weight:700;margin:0}.m4-hdr p{color:#aaa;font-size:11px;margin-top:3px}
+.m4-tabs{background:#f4f5f8;border-bottom:2px solid #e4e7ec;display:flex;padding:0 16px}
+.m4-tab{padding:10px 18px;font-size:12px;font-weight:700;color:#888;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;white-space:nowrap}
+.m4-tab.active{color:#1a1a2e;border-bottom-color:#1a1a2e;background:#fff}
+.m4-tc{display:none}.m4-tc.active{display:block}
+.m4-sumbar{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;padding:12px 16px;background:#fff;border-bottom:1px solid #e4e7ec}
+.m4-sb{background:#f8f9fb;border-radius:6px;padding:9px 10px;text-align:center;border:1px solid #e8eaed}
+.m4-sb-l{font-size:9px;color:#999;margin:0 0 3px;text-transform:uppercase;letter-spacing:.04em;line-height:1.3}
+.m4-sb-v{font-size:20px;font-weight:700;color:#1a1a2e}.m4-sb-d{font-size:10px;color:#666;margin-top:1px}
+.c-ok{color:#1e7e34}.c-warn{color:#854f0b}.c-danger{color:#a32d2d}.c-info{color:#185FA5}
+.m4-filter-bar{background:#fff;padding:10px 16px;border-bottom:1px solid #e4e7ec;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.m4-filter-bar span{font-size:11px;color:#888}
+.m4-fbtn{font-size:11px;padding:4px 12px;border-radius:5px;border:1px solid #d0d5dd;background:#fff;color:#555;cursor:pointer}
+.m4-fbtn.active{background:#1a1a2e;color:#fff;border-color:#1a1a2e;font-weight:700}
+.m4-add-btn{margin-left:auto;font-size:11px;padding:5px 14px;border-radius:5px;border:none;background:#185FA5;color:#fff;cursor:pointer;font-weight:700}
+.m4-cnpj-list{background:#fff;padding:0 16px 16px}
+.m4-cnpj-card{border:1px solid #e4e7ec;border-radius:8px;margin-top:12px;overflow:hidden}
+.m4-cnpj-card-hdr{padding:12px 16px;display:flex;align-items:center;gap:12px;cursor:pointer;user-select:none;background:#f8f9fb;border-bottom:1px solid #e4e7ec}
+.m4-cnpj-card-hdr:hover,.m4-cnpj-card-hdr.expanded{background:#f0f2f7}
+.m4-tipo{font-size:11px;font-weight:700;padding:4px 12px;border-radius:12px;white-space:nowrap}
+.m4-tipo-ent{background:#eaf3de;color:#1e7e34;border:1px solid #c0dd97}
+.m4-tipo-sai{background:#fff0f0;color:#a32d2d;border:1px solid #f5c1c1}
+.m4-cnpj-info{flex:1}.m4-cnpj-nome{font-size:13px;font-weight:700;color:#1a1a2e}
+.m4-cnpj-num{font-size:11px;color:#888;font-family:monospace;margin-top:1px}.m4-cnpj-meta{font-size:10px;color:#aaa;margin-top:2px}
+.m4-prog-wrap{min-width:140px;text-align:right}.m4-prog-label{font-size:10px;color:#888;margin-bottom:3px}
+.m4-prog-bar-outer{height:6px;background:#e4e7ec;border-radius:3px;overflow:hidden}
+.m4-prog-bar-inner{height:100%;border-radius:3px}
+.pb-ok{background:#1e7e34}.pb-warn{background:#854f0b}.pb-danger{background:#a32d2d}
+.m4-prog-pct{font-size:11px;font-weight:700;margin-top:3px}
+.m4-exp-icon{font-size:14px;color:#bbb;flex-shrink:0}
+.m4-fases{padding:0}.m4-fase{border-top:1px solid #e4e7ec}
+.m4-fase-hdr{display:flex;align-items:center;gap:10px;padding:10px 16px;background:#fafbfc;cursor:pointer;user-select:none}
+.m4-fase-hdr:hover{background:#f4f5f8}
+.m4-fase-num{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;flex-shrink:0}
+.fn-ok{background:#1e7e34}.fn-prog{background:#185FA5}.fn-pend{background:#888}
+.m4-fase-titulo{font-size:12px;font-weight:700;color:#1a1a2e;flex:1}
+.m4-fase-status{font-size:10px;font-weight:700;padding:2px 8px;border-radius:8px;white-space:nowrap}
+.fs-ok{background:#eaf3de;color:#1e7e34}.fs-prog{background:#e8f4ff;color:#185FA5}.fs-pend{background:#f0f2f5;color:#888}
+.m4-fase-exp{font-size:12px;color:#bbb;margin-left:4px}
+.m4-checklist{display:none;padding:8px 16px 12px 54px}.m4-checklist.open{display:block}
+.m4-check-item{display:flex;align-items:flex-start;gap:10px;padding:6px 0;border-bottom:1px solid #f8f8f8}
+.m4-check-item:last-child{border-bottom:none}
+.m4-check-box{width:18px;height:18px;border-radius:4px;border:2px solid #d0d5dd;flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-top:1px;background:#fff}
+.m4-check-box.checked{background:#1e7e34;border-color:#1e7e34;color:#fff;font-size:11px}
+.m4-check-box.late{background:#fff0f0;border-color:#a32d2d}
+.m4-check-box.na{background:#f0f2f5;border-color:#d0d5dd}
+.m4-check-box.going{background:#fff8e8;border-color:#854f0b}
+.m4-check-content{flex:1}.m4-check-title{font-size:12px;font-weight:600;color:#1a1a2e;line-height:1.3}
+.m4-check-meta{display:flex;gap:8px;margin-top:4px;flex-wrap:wrap;align-items:center}
+.m4-check-resp{font-size:10px;padding:1px 7px;border-radius:8px;background:#f0f2f5;color:#555}
+.m4-check-prazo{font-size:10px;font-weight:700}
+.prazo-ok{color:#1e7e34}.prazo-w{color:#854f0b}.prazo-l{color:#a32d2d}
+.m4-check-obs{font-size:10px;color:#854f0b;font-style:italic;margin-top:2px}
+.m4-alerta{background:#fff0f0;border-left:3px solid #a32d2d;padding:6px 10px;margin:4px 0;border-radius:0 4px 4px 0;font-size:11px;color:#a32d2d;font-weight:600}
+.m4-legend{display:flex;gap:16px;padding:10px 16px;background:#f8f9fb;border-top:1px solid #e4e7ec;font-size:10px;color:#666;flex-wrap:wrap}
+.m4-leg-i{display:flex;align-items:center;gap:5px}
+.m4-ftr{background:#f4f5f8;padding:10px 16px;text-align:center;font-size:11px;color:#aaa;border-top:1px solid #e4e7ec}
+.m4-empty{text-align:center;padding:40px;color:#aaa}
+</style>
+<div class="m4w">
+  <div class="m4-hdr">
+    <div><h1>🏛️ Torre de Controle do Fiscal — Entrada &amp; Saída de CNPJs</h1><p>MadeiraMadeira · Checklist por fase · Ref: Abril/2026</p></div>
+    <div style="text-align:right"><p style="color:#aaa;font-size:11px">Atualizado 01/04/2026</p><p style="color:#e24b4a;font-size:11px;font-weight:700">2 entradas em andamento · 1 saída em andamento</p></div>
+  </div>
+  <div class="m4-tabs">
+    <div class="m4-tab active" onclick="m4Tab('entrada',this)">🟢 Entrada de CNPJs <span style="background:#1e7e34;color:#fff;border-radius:10px;padding:1px 7px;font-size:10px;margin-left:4px">2</span></div>
+    <div class="m4-tab" onclick="m4Tab('saida',this)">🔴 Saída de CNPJs <span style="background:#a32d2d;color:#fff;border-radius:10px;padding:1px 7px;font-size:10px;margin-left:4px">1</span></div>
+    <div class="m4-tab" onclick="m4Tab('hist',this)">📋 Histórico</div>
+  </div>
+  <!-- ABA ENTRADA -->
+  <div class="m4-tc active" id="m4-tab-entrada">
+    <div class="m4-sumbar">
+      <div class="m4-sb"><div class="m4-sb-l">Em andamento</div><div class="m4-sb-v c-info">2</div><div class="m4-sb-d">CNPJs em ativação</div></div>
+      <div class="m4-sb"><div class="m4-sb-l">✅ Fase 1 OK</div><div class="m4-sb-v c-ok">1</div></div>
+      <div class="m4-sb"><div class="m4-sb-l">⏳ Fase 2</div><div class="m4-sb-v c-warn">1</div></div>
+      <div class="m4-sb"><div class="m4-sb-l">🔴 Bloqueados</div><div class="m4-sb-v c-danger">0</div></div>
+      <div class="m4-sb"><div class="m4-sb-l">Prontos p/ operar</div><div class="m4-sb-v c-ok">0</div></div>
+    </div>
+    <div class="m4-filter-bar"><span>Filtrar:</span><button class="m4-fbtn active" onclick="m4Filtrar(this)">Todos</button><button class="m4-fbtn" onclick="m4Filtrar(this)">Em andamento</button><button class="m4-add-btn">+ Novo CNPJ</button></div>
+    <div class="m4-cnpj-list">
+      <!-- Card Extrema/MG -->
+      <div class="m4-cnpj-card" id="m4-card-e1">
+        <div class="m4-cnpj-card-hdr" onclick="m4ToggleCard('e1')">
+          <span class="m4-tipo m4-tipo-ent">🟢 ENTRADA</span>
+          <div class="m4-cnpj-info"><div class="m4-cnpj-nome">Filial Novo CD Extrema/MG</div><div class="m4-cnpj-num">10.490.181/0096-00</div><div class="m4-cnpj-meta">Abertura: 15/03/2026 · UF: MG · CD Logístico</div></div>
+          <div class="m4-prog-wrap"><div class="m4-prog-label">Progresso geral</div><div class="m4-prog-bar-outer"><div class="m4-prog-bar-inner pb-warn" style="width:55%"></div></div><div class="m4-prog-pct c-warn">55% — Fase 2 em andamento</div></div>
+          <div class="m4-exp-icon" id="m4-icon-e1">▶</div>
+        </div>
+        <div class="m4-fases" id="m4-fases-e1" style="display:none">
+          <div class="m4-fase">
+            <div class="m4-fase-hdr" onclick="m4ToggleFase('m4-f-e1-1')"><div class="m4-fase-num fn-ok">1</div><div class="m4-fase-titulo">Fase 1 — Pré-ativação (cadastros e alvarás)</div><span class="m4-fase-status fs-ok">✅ Concluída</span><span class="m4-fase-exp" id="icon-m4-f-e1-1">▶</span></div>
+            <div class="m4-checklist" id="m4-f-e1-1">
+              <div class="m4-check-item"><div class="m4-check-box checked">✓</div><div class="m4-check-content"><div class="m4-check-title">CNPJ ativo na Receita Federal</div><div class="m4-check-meta"><span class="m4-check-resp">Resp: Geisi</span><span class="prazo-ok m4-check-prazo">✓ 15/03/2026</span></div></div></div>
+              <div class="m4-check-item"><div class="m4-check-box checked">✓</div><div class="m4-check-content"><div class="m4-check-title">Inscrição Estadual (IE) — Minas Gerais</div><div class="m4-check-meta"><span class="m4-check-resp">Resp: Geisi</span><span class="prazo-ok m4-check-prazo">✓ 22/03/2026</span></div></div></div>
+              <div class="m4-check-item"><div class="m4-check-box checked">✓</div><div class="m4-check-content"><div class="m4-check-title">Inscrição Municipal (ISS) — Extrema/MG</div><div class="m4-check-meta"><span class="m4-check-resp">Resp: Geisi</span><span class="prazo-ok m4-check-prazo">✓ 23/03/2026</span></div></div></div>
+              <div class="m4-check-item"><div class="m4-check-box checked">✓</div><div class="m4-check-content"><div class="m4-check-title">Alvará de funcionamento — Prefeitura Extrema</div><div class="m4-check-meta"><span class="m4-check-resp">Resp: Vini</span><span class="prazo-ok m4-check-prazo">✓ 20/03/2026</span></div></div></div>
+              <div class="m4-check-item"><div class="m4-check-box checked">✓</div><div class="m4-check-content"><div class="m4-check-title">AVCB — Corpo de Bombeiros</div><div class="m4-check-meta"><span class="m4-check-resp">Resp: Vini</span><span class="prazo-ok m4-check-prazo">✓ 19/03/2026</span></div></div></div>
+            </div>
+          </div>
+          <div class="m4-fase">
+            <div class="m4-fase-hdr" onclick="m4ToggleFase('m4-f-e1-2')"><div class="m4-fase-num fn-prog">2</div><div class="m4-fase-titulo">Fase 2 — Configuração fiscal</div><span class="m4-fase-status fs-prog">🔵 Em andamento</span><span class="m4-fase-exp" id="icon-m4-f-e1-2">▶</span></div>
+            <div class="m4-checklist open" id="m4-f-e1-2">
+              <div class="m4-check-item"><div class="m4-check-box checked">✓</div><div class="m4-check-content"><div class="m4-check-title">Acesso ao e-CAC configurado (2 usuários)</div><div class="m4-check-meta"><span class="m4-check-resp">Resp: Geisi</span><span class="prazo-ok m4-check-prazo">✓ 24/03/2026</span></div></div></div>
+              <div class="m4-check-item"><div class="m4-check-box checked">✓</div><div class="m4-check-content"><div class="m4-check-title">DEC ativado</div><div class="m4-check-meta"><span class="m4-check-resp">Resp: Isa</span><span class="prazo-ok m4-check-prazo">✓ 25/03/2026</span></div></div></div>
+              <div class="m4-check-item"><div class="m4-check-box late">!</div><div class="m4-check-content"><div class="m4-check-title">Certificado digital A1/A3 instalado</div><div class="m4-check-obs">⚠️ Bloqueante: sem certificado não é possível transmitir obrigações acessórias</div><div class="m4-check-meta"><span class="m4-check-resp">Resp: Geisi</span><span class="prazo-l m4-check-prazo">⚠️ Pendente</span></div></div></div>
+              <div class="m4-check-item"><div class="m4-check-box going">~</div><div class="m4-check-content"><div class="m4-check-title">ERP parametrizado e testado em homologação</div><div class="m4-check-meta"><span class="m4-check-resp">Resp: Toazza / TI</span><span class="prazo-w m4-check-prazo">Em andamento</span></div></div></div>
+            </div>
+          </div>
+          <div class="m4-fase"><div class="m4-fase-hdr"><div class="m4-fase-num fn-pend">3</div><div class="m4-fase-titulo">Fase 3 — Validação e liberação para operar</div><span class="m4-fase-status fs-pend">⏸ Aguardando fase 2</span></div></div>
+        </div>
+      </div>
+      <!-- Card Brasília/DF -->
+      <div class="m4-cnpj-card" id="m4-card-e2">
+        <div class="m4-cnpj-card-hdr" onclick="m4ToggleCard('e2')">
+          <span class="m4-tipo m4-tipo-ent">🟢 ENTRADA</span>
+          <div class="m4-cnpj-info"><div class="m4-cnpj-nome">Guide Shop Brasília/DF</div><div class="m4-cnpj-num">10.490.181/0097-00</div><div class="m4-cnpj-meta">Abertura: 28/03/2026 · UF: DF · Loja Física</div></div>
+          <div class="m4-prog-wrap"><div class="m4-prog-label">Progresso geral</div><div class="m4-prog-bar-outer"><div class="m4-prog-bar-inner pb-danger" style="width:15%"></div></div><div class="m4-prog-pct c-danger">15% — Fase 1 iniciada</div></div>
+          <div class="m4-exp-icon" id="m4-icon-e2">▶</div>
+        </div>
+        <div class="m4-fases" id="m4-fases-e2" style="display:none">
+          <div class="m4-fase">
+            <div class="m4-fase-hdr" onclick="m4ToggleFase('m4-f-e2-1')"><div class="m4-fase-num fn-prog">1</div><div class="m4-fase-titulo">Fase 1 — Pré-ativação</div><span class="m4-fase-status fs-prog">🔵 Em andamento</span><span class="m4-fase-exp" id="icon-m4-f-e2-1">▶</span></div>
+            <div class="m4-checklist open" id="m4-f-e2-1">
+              <div class="m4-check-item"><div class="m4-check-box checked">✓</div><div class="m4-check-content"><div class="m4-check-title">CNPJ ativo na Receita Federal</div><div class="m4-check-meta"><span class="m4-check-resp">Resp: Geisi</span><span class="prazo-ok m4-check-prazo">✓ 28/03/2026</span></div></div></div>
+              <div class="m4-check-item"><div class="m4-check-box going">~</div><div class="m4-check-content"><div class="m4-check-title">Inscrição Estadual (IE) — Distrito Federal</div><div class="m4-check-meta"><span class="m4-check-resp">Resp: Geisi</span><span class="prazo-w m4-check-prazo">Protocolo: 30/03/2026 · Prazo est.: 10/04/2026</span></div></div></div>
+              <div class="m4-check-item"><div class="m4-check-box"></div><div class="m4-check-content"><div class="m4-check-title">Inscrição Municipal (ISS) — Brasília/DF</div><div class="m4-check-meta"><span class="m4-check-resp">Resp: Geisi</span><span class="prazo-w m4-check-prazo">Aguardando IE</span></div></div></div>
+              <div class="m4-check-item"><div class="m4-check-box"></div><div class="m4-check-content"><div class="m4-check-title">Alvará de funcionamento + AVCB</div><div class="m4-check-meta"><span class="m4-check-resp">Resp: Vini</span><span class="prazo-w m4-check-prazo">Não iniciado</span></div></div></div>
+            </div>
+          </div>
+          <div class="m4-fase"><div class="m4-fase-hdr"><div class="m4-fase-num fn-pend">2</div><div class="m4-fase-titulo">Fase 2 — Configuração fiscal</div><span class="m4-fase-status fs-pend">⏸ Aguardando fase 1</span></div></div>
+          <div class="m4-fase"><div class="m4-fase-hdr"><div class="m4-fase-num fn-pend">3</div><div class="m4-fase-titulo">Fase 3 — Validação e liberação</div><span class="m4-fase-status fs-pend">⏸ Aguardando fase 2</span></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="m4-legend"><div class="m4-leg-i"><div class="m4-check-box checked" style="width:14px;height:14px;font-size:9px">✓</div>Concluído</div><div class="m4-leg-i"><div class="m4-check-box going" style="width:14px;height:14px;font-size:9px">~</div>Em andamento</div><div class="m4-leg-i"><div class="m4-check-box late" style="width:14px;height:14px;font-size:9px">!</div>Crítico / Bloqueante</div><div class="m4-leg-i"><div class="m4-check-box" style="width:14px;height:14px"></div>Não iniciado</div></div>
+  </div>
+  <!-- ABA SAÍDA -->
+  <div class="m4-tc" id="m4-tab-saida">
+    <div class="m4-sumbar">
+      <div class="m4-sb"><div class="m4-sb-l">Em encerramento</div><div class="m4-sb-v c-danger">1</div></div>
+      <div class="m4-sb"><div class="m4-sb-l">🔴 Com débito ativo</div><div class="m4-sb-v c-danger">1</div></div>
+      <div class="m4-sb"><div class="m4-sb-l">Baixa formalizada</div><div class="m4-sb-v">0</div></div>
+      <div class="m4-sb"><div class="m4-sb-l">Encerrados no mês</div><div class="m4-sb-v c-ok">0</div></div>
+      <div class="m4-sb"><div class="m4-sb-l">Pós-baixa</div><div class="m4-sb-v">0</div></div>
+    </div>
+    <div class="m4-filter-bar"><span>Filtrar:</span><button class="m4-fbtn active" onclick="m4Filtrar(this)">Todos</button><button class="m4-fbtn" onclick="m4Filtrar(this)">🔴 Com débito</button><button class="m4-add-btn">+ Encerrar CNPJ</button></div>
+    <div class="m4-cnpj-list">
+      <div class="m4-cnpj-card" id="m4-card-s1">
+        <div class="m4-cnpj-card-hdr" onclick="m4ToggleCard('s1')">
+          <span class="m4-tipo m4-tipo-sai">🔴 SAÍDA</span>
+          <div class="m4-cnpj-info"><div class="m4-cnpj-nome">Filial Viana/ES (encerrada)</div><div class="m4-cnpj-num">10.490.181/0004-00</div><div class="m4-cnpj-meta">Encerramento ops: 28/02/2026 · UF: ES · CND: Positiva c/ Efeito Negativo ⚠️</div></div>
+          <div class="m4-prog-wrap"><div class="m4-prog-label">Progresso do encerramento</div><div class="m4-prog-bar-outer"><div class="m4-prog-bar-inner pb-warn" style="width:35%"></div></div><div class="m4-prog-pct c-warn">35% — Pré-encerramento</div></div>
+          <div class="m4-exp-icon" id="m4-icon-s1">▶</div>
+        </div>
+        <div class="m4-fases" id="m4-fases-s1" style="display:none">
+          <div class="m4-fase">
+            <div class="m4-fase-hdr" onclick="m4ToggleFase('m4-f-s1-1')"><div class="m4-fase-num fn-prog">1</div><div class="m4-fase-titulo">Fase 1 — Pré-encerramento</div><span class="m4-fase-status fs-prog">🔵 Em andamento</span><span class="m4-fase-exp" id="icon-m4-f-s1-1">▶</span></div>
+            <div class="m4-checklist open" id="m4-f-s1-1">
+              <div class="m4-alerta">⚠️ Regra de ouro: não protocolar baixa com CND Positiva. Regularizar primeiro.</div>
+              <div class="m4-check-item"><div class="m4-check-box late">!</div><div class="m4-check-content"><div class="m4-check-title">CND Federal — deve estar Negativa</div><div class="m4-check-obs">⚠️ Felix buscando orçamentos de seguro fiança (ref: R$350k Itaú). Prazo: sexta que vem</div><div class="m4-check-meta"><span class="m4-check-resp">Resp: Geisi</span><span class="prazo-l m4-check-prazo">🔴 Positiva c/ Efeito Negativo</span></div></div></div>
+              <div class="m4-check-item"><div class="m4-check-box checked">✓</div><div class="m4-check-content"><div class="m4-check-title">Levantamento de parcelamentos ativos</div><div class="m4-check-meta"><span class="m4-check-resp">Resp: Geisi</span><span class="prazo-ok m4-check-prazo">✓ Sem parcelamentos ativos</span></div></div></div>
+              <div class="m4-check-item"><div class="m4-check-box checked">✓</div><div class="m4-check-content"><div class="m4-check-title">Última NF-e de saída registrada — NF-e nº 000.124</div><div class="m4-check-meta"><span class="m4-check-resp">Resp: Geisi</span><span class="prazo-ok m4-check-prazo">✓ 28/02/2026</span></div></div></div>
+            </div>
+          </div>
+          <div class="m4-fase">
+            <div class="m4-fase-hdr" onclick="m4ToggleFase('m4-f-s1-2')"><div class="m4-fase-num fn-pend">2</div><div class="m4-fase-titulo">Fase 2 — Baixa formal (IE, IM e CNPJ)</div><span class="m4-fase-status fs-pend">⏸ Aguardando fase 1</span><span class="m4-fase-exp" id="icon-m4-f-s1-2">▶</span></div>
+            <div class="m4-checklist" id="m4-f-s1-2">
+              <div class="m4-check-item"><div class="m4-check-box na">—</div><div class="m4-check-content"><div class="m4-check-title">Baixa da Inscrição Estadual — SEFAZ-ES</div><div class="m4-check-meta"><span class="m4-check-resp">Resp: Geisi</span><span class="prazo-w m4-check-prazo">Aguardando CND regularizada</span></div></div></div>
+              <div class="m4-check-item"><div class="m4-check-box na">—</div><div class="m4-check-content"><div class="m4-check-title">Baixa do CNPJ — Receita Federal (REDESIM)</div><div class="m4-check-meta"><span class="m4-check-resp">Resp: Geisi</span><span class="prazo-w m4-check-prazo">Aguardando IE e IM baixadas</span></div></div></div>
+            </div>
+          </div>
+          <div class="m4-fase"><div class="m4-fase-hdr"><div class="m4-fase-num fn-pend">3</div><div class="m4-fase-titulo">Fase 3 — Pós-baixa</div><span class="m4-fase-status fs-pend">⏸ Aguardando baixa</span></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="m4-legend"><div style="font-size:10px;color:#a32d2d;font-weight:700">⚠️ Regra de ouro: NUNCA protocolar baixa com CND Positiva</div></div>
+  </div>
+  <!-- ABA HISTÓRICO -->
+  <div class="m4-tc" id="m4-tab-hist"><div class="m4-empty"><div>📋</div><div style="font-size:14px;font-weight:700;color:#555">Histórico — a construir</div></div></div>
+  <div class="m4-ftr">Torre de Controle do Fiscal · Entrada &amp; Saída de CNPJs · MadeiraMadeira · Ref: Abr/2026</div>
+</div>
+<script>
+(function(){
+  function m4Tab(t,el){
+    document.querySelectorAll('#module-container .m4-tab').forEach(x=>x.classList.remove('active'));
+    document.querySelectorAll('#module-container .m4-tc').forEach(x=>x.classList.remove('active'));
+    el.classList.add('active');document.getElementById('m4-tab-'+t).classList.add('active');
+  }
+  function m4ToggleCard(id){
+    const fases=document.getElementById('m4-fases-'+id);
+    const icon=document.getElementById('m4-icon-'+id);
+    const hdr=document.getElementById('m4-card-'+id).querySelector('.m4-cnpj-card-hdr');
+    const open=fases.style.display==='none';
+    fases.style.display=open?'block':'none';icon.textContent=open?'▼':'▶';hdr.classList.toggle('expanded',open);
+  }
+  function m4ToggleFase(id){
+    const cl=document.getElementById(id);const icon=document.getElementById('icon-'+id);
+    if(!cl||!icon)return;const open=cl.classList.toggle('open');icon.textContent=open?'▼':'▶';
+  }
+  function m4Filtrar(btn){btn.closest('.m4-filter-bar').querySelectorAll('.m4-fbtn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');}
+  window.m4Tab=m4Tab;window.m4ToggleCard=m4ToggleCard;window.m4ToggleFase=m4ToggleFase;window.m4Filtrar=m4Filtrar;
+})();
+</script>
